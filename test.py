@@ -6,7 +6,7 @@ usuarios = {
     "estudiante3@ayed.com": "555666",
 }
 
-def menu_inicio()
+def menu_inicio():
     print(" ")
     print("0-Registrarse")
     print("1-Iniciar sesion")
