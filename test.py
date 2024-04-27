@@ -19,7 +19,8 @@ def menu_inicio():
         login()
     else:
         exit("Saliendo...")
-
+def registro():
+    print("aaa")  
 def login():
     intentos= 3
     while intentos > 0 :
@@ -47,5 +48,10 @@ def login():
 
 while sesion_iniciada is False:
     menu_inicio()
-
-    
+def menu_principal():
+    print(" ")
+    print("0-Salir")
+    print("1-Gestionar mi perfil")
+    print("2-Gestionar candidatos")
+    print("3-Matcheos")
+    print("4-Reportes estadisticos")
