@@ -55,3 +55,4 @@ def menu_principal():
     print("2-Gestionar candidatos")
     print("3-Matcheos")
     print("4-Reportes estadisticos")
+menu_principal()
