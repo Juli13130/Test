@@ -18,8 +18,7 @@ def menu_inicio():
     elif seleccion_inicio == "1":
         login()
     else:
-        print("Saliendo...")
-        
+        exit("Saliendo...")
 
 def login():
     intentos= 3
