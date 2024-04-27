@@ -7,16 +7,19 @@ usuarios = {
 }
 
 def menu_inicio():
-    print(" ")
+    print(" ")  #espacio para que el "menu" sea mas obvio
     print("0-Registrarse")
     print("1-Iniciar sesion")
+    print("3-Salir")
     seleccion_inicio = input("seleccionar: >")
 
-    if seleccion_inicio == "0" or "r":
+    if seleccion_inicio == "0":
         print("registro")
-    elif seleccion_inicio == "1" or "i":
+    elif seleccion_inicio == "1":
         login()
-    else: print("?")
+    else:
+        print("Saliendo...")
+        
 
 def login():
     intentos= 3
@@ -43,6 +46,7 @@ def login():
                 print("Ha intentado el maximo de intentos permitidos. Fin del Inicio de Sesion")
                 menu_inicio()
 
-menu_inicio()
+while sesion_iniciada is False:
+    menu_inicio()
 
     
