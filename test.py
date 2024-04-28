@@ -10,17 +10,18 @@ def menu_inicio():
     print(" ")  #espacio para que el "menu" sea mas obvio
     print("0-Registrarse")
     print("1-Iniciar sesion")
-    print("3-Salir")
+    print("2-Salir")
     seleccion_inicio = input("seleccionar: >")
 
     if seleccion_inicio == "0":
-        print("registro")
+        registro()
     elif seleccion_inicio == "1":
         login()
     else:
         exit("Saliendo...")
 def registro():
-    print("aaa")  
+    print("codigo va aca")
+    sesion_iniciada = True
 def login():
     intentos= 3
     while intentos > 0 :
@@ -28,24 +29,20 @@ def login():
         if correo in usuarios:
             contraseña= getpass.getpass("Ingrese la contraseña: ")
             if contraseña== usuarios[correo]:
-                print ("Inicio de sesion correcto.")
+                print("Inicio de sesion correcto.")
                 sesion_iniciada = True
-                return
             else:
                 intentos -=1
                 if intentos> 0:
                     print("Inicio de sesion incorrecto.","intente nuevamente")
                 else:
                     print("Ha agotado todos los intentos disponibles. Fin del Inicio de Sesion.")
-                    menu_inicio()
         else:
             intentos -=1
             if intentos > 0:
                 print("Correo electronico incorrecto. Ingrese nuevamente su correo:")
             else:
                 print("Ha intentado el maximo de intentos permitidos. Fin del Inicio de Sesion")
-                menu_inicio()
-
 while sesion_iniciada is False:
     menu_inicio()
 def menu_principal():
