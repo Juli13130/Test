@@ -19,11 +19,11 @@ def menu_inicio():
         registro()
     elif seleccion_inicio == "1":
         login()
-    else:       ##no estoy seguro si es preferible a un if
+    else:       ##no estoy seguro si es preferible a un if ^ == 2 pero necesitaria otro else
         exit("Saliendo...")
 def registro():
     global sesion_iniciada
-    print("codigo va aca")
+    print("codigo va aca")##########placeholder + truco para llegar al otro menu rapido
     sesion_iniciada = True
 def login():
     intentos= 3
@@ -39,13 +39,13 @@ def login():
                 if intentos> 0:
                     print("Inicio de sesion incorrecto.","intente nuevamente")
                 else:
-                    print("Ha agotado todos los intentos disponibles. Fin del Inicio de Sesion.")
+                    print("Ha agotado todos los intentos disponibles. Fin del Inicio de Sesion.") ## el enunciado dice "si ingresa 3 incorrectas se cerrara el programa", aca puede haber un exit tranquilamente pero prefiero no volver a correr el .ṕy
         else:
             intentos -=1
             if intentos > 0:
                 print("Correo electronico incorrecto. Ingrese nuevamente su correo:")
             else:
-                print("Ha intentado el maximo de intentos permitidos. Fin del Inicio de Sesion")
+                print("Ha intentado el maximo de intentos permitidos. Fin del Inicio de Sesion") ## lo mismo ^^^
 
 def limpiar_consola(n=1):     ### mas que nada para limpiar la consola de menus previos, se puede eliminar sin problemas
     for _ in range(n):
@@ -53,9 +53,9 @@ def limpiar_consola(n=1):     ### mas que nada para limpiar la consola de menus 
         sys.stdout.write("\x1b[2K")  # delete the last line
 
 def editor_datos():
-    print("yay")
+    print("yay")##########placeholder
 def menu_principal():
-    global sesion_iniciada
+    global sesion_iniciada #necesario para usar esta variable afuera de esta funcion
     print(" ")
     print("0-Salir")
     print("1-Gestionar mi perfil")
@@ -64,7 +64,7 @@ def menu_principal():
     print("4-Reportes estadisticos")
     seleccion_pri = input("Selecionar: >")
     if seleccion_pri == "1":
-        limpiar_consola(5)
+        limpiar_consola(6) # (6) lineas limpiadas
         print("--Gestionar mi perfil--")
         print("a-Editar mis datos personales")
         if input("sel: ").casefold() == "a":
@@ -100,7 +100,7 @@ def menu_principal():
         else:
             exit
     else:
-        print("?")
+        print("?")####me gustaria tener mensajes aleatorios aca, ya que no podemos tirarte de una sesion iniciada y no hay mucho que poner
 
 while loop == True:         #mantiene al usuario en un menu u otro
     if sesion_iniciada == False:
