@@ -15,20 +15,32 @@ def menu_principal():
     print("1-Gestionar mi perfil")
     print("2-Gestionar candidatos")
     print("3-Matcheos")
-    print("4-Reportes estadisticos")
+    print("4-Reportes estadisticas")
     seleccion_pri = input("Selecionar: >")
     if seleccion_pri == "1":
         delete_multiple_lines(6)
-        print("--1-Gestionar mi perfil--")
+        print("--Gestionar mi perfil--")
         print("a-Editar mis datos personales")
+        ###print("b-")
+        ###print("c-Salir")
     elif seleccion_pri == "2":
-        print("s")
+        delete_multiple_lines(6)
+        print("--Gestionar candidatos--")
+        print("a-Ver candidatos")
+        ###print("b-")
+        ###print("c-Salir")
     elif seleccion_pri == "3":
-        print("t")
+        delete_multiple_lines(6)
+        print("--Matcheos--")
+        print("a-Editar mis datos personales")
+        print("b-")
+        print("c-Salir")
     elif seleccion_pri == "4":
-        print("e")
+        print("en construccion")
     elif seleccion_pri == "0":
-        print("ss")
+        delete_multiple_lines(6)
+        sesion_iniciada = False
+        exit
     else:
         print("?")
 menu_principal()
