@@ -1,120 +1,139 @@
+#Para ocultar los caracteres
 import getpass
-import sys  # parte de limpiar_consola(), se puede eliminar
-loop = True  # esto no puede cambiar ya que es preferible salir mediante exit
-sesion_iniciada = False
-usuarios = {
-    "estudiante1@ayed.com": "111222",
-    "estudiante2@ayed.com": "333444",
-    "estudiante3@ayed.com": "555666",
-}
+#Para limpiar la consola
+import os
+#Par usar delay
+from time import sleep
 
+#Usuarios y variables
+estudiante1_email ="estudiante1@ayed.com"
+estudiante1_contrasenia ="111222"
+estudiante2_email ="estudiante2@ayed.com"
+estudiante2_contrasenia ="333444"
+estudiante3_email ="estudiante3@ayed.com"
+estudiante3_contrasenia ="555666"
 
-def menu_inicio():
-    print(" ")  # espacio para que el "menu" sea mas obvio
-    print("0-Registrarse")
-    print("1-Iniciar sesion")
-    print("2-Salir")
-    seleccion_inicio = input("seleccionar: >")
+inicio=False
 
-    if seleccion_inicio == "0":
-        registro()
-    elif seleccion_inicio == "1":
-        login()
-    else:  # no estoy seguro si es preferible a un if ^ == 2
-        exit("Saliendo...")
+def limpiar_pantalla():
 
+    #os.system("clear")
+    os.system('cls')
 
-def registro():
-    global sesion_iniciada
-    print("codigo va aca")  # placeholder+truco para llegar al otro menu rapido
-    sesion_iniciada = True
-
+#Login
 
 def login():
+    #Var a usar
+    global inicio
+    correo=""
+    contrasenia=""
     intentos = 3
-    while intentos > 0:
-        correo = input("Ingrese su correo electronico: ")
-        if correo in usuarios:
-            contraseña = getpass.getpass("Ingrese la contraseña: ")
-            if contraseña == usuarios[correo]:
-                print("Inicio de sesion correcto.")
-                global sesion_iniciada
-                sesion_iniciada = True
-            else:
-                intentos -= 1
-                if intentos > 0:
-                    print("Inicio de sesion incorrecto.", "intente nuevamente")
-                else:
-                    print("Ha agotado todos los intentos disponibles. Fin del Inicio de Sesion.")  # el enunciado dice "si ingresa 3 incorrectas se cerrara el programa", aca puede haber un exit tranquilamente pero prefiero no volver a correr el .ṕy
+    while intentos > 0 :
+        correo= input ("Ingrese su correo electronico: ")
+        contrasenia = input("Ingrese la contrasenia: ")
+        #contrasenia == getpass.getpass("Ingrese la contrasenia: ")
+        if (correo == estudiante1_email and contrasenia == estudiante1_contrasenia) or (correo == estudiante2_email and contrasenia == estudiante2_contrasenia) or (correo == estudiante3_email and contrasenia == estudiante3_contrasenia):
+            print ("Inicio de sesion correcto.")
+            intentos = 0
+            inicio = True
+            sleep(3)
+            limpiar_pantalla()
         else:
-            intentos -= 1
-            if intentos > 0:
-                print("Correo electronico incorrecto. Ingrese nuevamente su correo:")
-            else:
-                print("Ha intentado el maximo de intentos permitidos. Fin del Inicio de Sesion")  # lo mismo ^^^
-
-
-def limpiar_consola(n=1):  # mas que nada para limpiar la consola de menus previos, se puede eliminar sin problemas
-    for _ in range(n):
-        sys.stdout.write("\x1b[1A")  # cursor up one line
-        sys.stdout.write("\x1b[2K")  # delete the last line
-
-
-def editor_datos():
-    print("yay")  # placeholder
-
+            intentos -=1
+            print("Credenciales incorrectas.")
+            print("Quedan ",intentos," intentos")
+            sleep(3)
+            limpiar_pantalla()
 
 def menu_principal():
-    global sesion_iniciada
-    print(" ")
-    print("0-Salir")
-    print("1-Gestionar mi perfil")
-    print("2-Gestionar candidatos")
-    print("3-Matcheos")
-    print("4-Reportes estadisticos")
-    seleccion_pri = input("Selecionar: >")
-    if seleccion_pri == "1":
-        limpiar_consola(6)  # (6) lineas limpiadas
-        print("--Gestionar mi perfil--")
-        print("a-Editar mis datos personales")
-        if input("sel: ").casefold() == "a":
-            editor_datos()
-        else:
-            return
-        # print("b-")
-        # print("c-Salir")
-    elif seleccion_pri == "2":
-        limpiar_consola(6)
-        print("--Gestionar candidatos--")
-        print("a-Ver candidatos")
-        # print("b-")
-        # print("c-Salir")
-    elif seleccion_pri == "3":
-        limpiar_consola(6)
-        print("--Matcheos--")
-        print("a-Editar mis datos personales")
-        print("b-")
-        print("c-Salir")
-    elif seleccion_pri == "4":
-        print("en construccion")
-    elif seleccion_pri == "0":
-        limpiar_consola(6)
-        print("0-Volver")
-        print("1-Salir de la cuenta")
-        print("~-Salir")
-        salir = input("Estas seguro? ")
-        if salir == "0":
-            return
-        elif salir == "1":
-            sesion_iniciada = False
-        else:
-            exit
-    else:
-        print("?")  # me gustaria tener mensajes aleatorios aca, ya que no podemos tirarte de una sesion iniciada y no hay mucho que poner
+    print("\n")
+    print("1. Gestionar mi perfil")
+    print("2. Gestionar candidatos")
+    print("3. Matcheos")
+    print("4. Reportes estadisticos")
+    print("0. Salir")
 
+def menu_print_gestion_perfil():
+    print("1. Gestionar mi perfil")
+    print("a. Editar mis datos personales")
+    print("b. Eliminar mi perfil")
+    print("c. Volver")
+    
+def menu_opc_gestion_perfil():
+    limpiar_pantalla()
+    menu_print_gestion_perfil()
+    opc = input("Ingrese una opcion: ")
+    while opc != "c":
+        if opc== "a":
+            print("Menu editar mis datos personales")
+        #Para esta entrega los otros menúes no andan
+        else:
+            print("En construccion")
+        limpiar_pantalla()
+        menu_print_gestion_perfil()
+        opc = input("Ingrese una opcion: ")
+    
+def menu_print_gestion_candidatos():
+    print("2. Gestionar candidatos")
+    print("a. Ver candidatos")
+    print("b. Reportar un candidato")
+    print("c. Volver")
 
-while loop is True:  # mantiene al usuario en un menu u otro
-    if sesion_iniciada is False:
-        menu_inicio()
-    if sesion_iniciada is True:
+def menu_opc_gestion_candidatos():
+    limpiar_pantalla()
+    menu_print_gestion_candidatos()
+    opc = input("Ingrese una opcion: ")
+    while opc != "c":
+        if opc== "a":
+            print("Menu ver candidatos")
+        #Para esta entrega los otros menúes no andan
+        else:
+            print("En construccion")
+        limpiar_pantalla()
+        menu_print_gestion_candidatos()
+        opc = input("Ingrese una opcion: ")
+    
+def menu_print_matcheos():
+    print("3. Matcheos")
+    print("a. Ver matcheos")
+    print("b. Eliminar un matcheo")
+    print("c. Volver")
+    
+def menu_opc_matcheos():
+    limpiar_pantalla()
+    menu_print_matcheos()
+    # opc = input("Ingrese una opcion: ")
+    # while opc != "c":
+    #     if opc== "a":
+    #         print("Menu ver candidatos")
+    #     #Para esta entrega los otros menúes no andan
+    #     else:
+    #         print("En construccion")
+    #     limpiar_pantalla()
+    #     menu_print_matcheos()
+    #     opc = input("Ingrese una opcion: ")
+    
+###Programa###
+
+    
+login()
+if inicio == True:
+    opc_principal=1
+    while opc_principal != 0:
+        limpiar_pantalla()
         menu_principal()
+        opc_principal = int(input("Ingrese opcion: "))
+        if opc_principal == 1:
+            menu_opc_gestion_perfil()
+        elif opc_principal == 2:
+            menu_opc_gestion_candidatos()
+        elif opc_principal ==3:
+            menu_opc_matcheos()
+        elif opc_principal==4:
+            print("En construccion")
+        limpiar_pantalla()
+    print("El sistema se cerrara.")
+else:
+    print("Ingreso incorrectamente las credenciales. El sistema se cerrara")
+    
+
