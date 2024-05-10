@@ -1,8 +1,9 @@
 '''
-estudiante*_email, estudiante*_contrasenia, estudiante*_bio, estudiante*_hobbie, correo, contrasenia, bio, hobbie  :string
+estudiante*_email, estudiante*_contrasenia, estudiante*_bio, estudiante*_hobbie, correo, contrasenia, bio, hobbie, seleccion_numerica  :string
 inicio  :boolean
 intentos, opcion, opcion_principal    :integer
 
+sin definir: estudiante*_fec, fec
 '''
 
 #Para ocultar los caracteres
@@ -194,7 +195,10 @@ if inicio:
     while opc_principal != 0:
         limpiar_pantalla()
         menu_principal()
-        opc_principal = int(input("Ingrese opcion: "))
+        seleccion_numerica = input("Ingrese su seleccion: ")
+        while not seleccion_numerica.isnumeric():
+            seleccion_numerica = input("Ingrese su seleccion (por su numero): ")
+        opc_principal = int(seleccion_numerica)
         match opc_principal:
             case 1:
                 menu_opc_gestion_perfil()
