@@ -8,10 +8,20 @@ from time import sleep
 #Usuarios y variables
 estudiante1_email ="estudiante1@ayed.com"
 estudiante1_contrasenia ="111222"
+estudiante1_fec=""
+estudiante1_bio=""
+estudiante1_hobbie=""
 estudiante2_email ="estudiante2@ayed.com"
 estudiante2_contrasenia ="333444"
+estudiante2_fec=""
+estudiante2_bio=""
+estudiante2_hobbie=""
 estudiante3_email ="estudiante3@ayed.com"
 estudiante3_contrasenia ="555666"
+estudiante3_fec=""
+estudiante3_bio=""
+estudiante3_hobbie=""
+correo=""
 
 inicio=False
 
@@ -25,7 +35,8 @@ def limpiar_pantalla():
 def login():
     #Var a usar
     global inicio
-    correo=""
+    global correo
+    #correo=""
     contrasenia=""
     intentos = 3
     while intentos > 0 :
@@ -44,6 +55,62 @@ def login():
             print("Quedan ",intentos," intentos")
             sleep(3)
             limpiar_pantalla()
+
+def menu_editar_datos_personales():
+    global correo
+    global estudiante1_fec
+    global estudiante1_bio
+    global estudiante1_hobbie
+    global estudiante2_fec
+    global estudiante2_bio
+    global estudiante2_hobbie
+    global estudiante3_fec
+    global estudiante3_bio
+    global estudiante3_hobbie
+    #Asigno los datos del estudiante a las variables auxiliares.
+    if correo==estudiante1_email:
+        fec=estudiante1_fec
+        bio=estudiante1_bio
+        hobbie=estudiante1_hobbie
+    if correo==estudiante2_email:
+        fec=estudiante2_fec
+        bio=estudiante2_bio
+        hobbie=estudiante2_hobbie
+    if correo==estudiante3_email:
+        fec=estudiante3_fec
+        bio=estudiante3_bio
+        hobbie=estudiante3_hobbie
+    opc=1
+    while opc!="4":
+        print("Sus datos actuales son: ")
+        print("Su fecha de nacimiento es: ",fec)
+        print("Su biografia es: ",bio)
+        print("Su hobbie es: ",hobbie)
+        print("Que dato desea cambiar?")
+        print("1. Fecha de naciemiento")
+        print("2. Biografia")
+        print("3. Hobbie")
+        print("4. Salir")
+        opc= int(input("Ingrese el numero: "))
+        if opc==1:
+            fec=input("Ingrese la nueva fecha de nacimiento en formato YYYY-MM-DD : ")
+        if opc==2:
+            bio=input("Ingrese la nueva biografia: ")
+        if opc==3:
+            hobbie=input("Ingrese el nuevo hobbie: ")
+    #Asigno el valor de las variables auxiliares al estudiante
+    if correo==estudiante1_email:
+        estudiante1_fec=fec
+        estudiante1_bio=bio
+        estudiante1_hobbie=hobbie
+    if correo==estudiante2_email:
+        estudiante2_fec=fec
+        estudiante2_bio=bio
+        estudiante2_hobbie=hobbie
+    if correo==estudiante3_email:
+        estudiante3_fec=fec
+        estudiante3_bio=bio
+        estudiante3_hobbie=hobbie
 
 def menu_principal():
     print("\n")
@@ -65,7 +132,7 @@ def menu_opc_gestion_perfil():
     opc = input("Ingrese una opcion: ")
     while opc != "c":
         if opc== "a":
-            print("Menu editar mis datos personales")
+            menu_editar_datos_personales()
         #Para esta entrega los otros menúes no andan
         else:
             print("En construccion")
