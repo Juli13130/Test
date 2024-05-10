@@ -1,3 +1,10 @@
+'''
+estudiante*_email, estudiante*_contrasenia, estudiante*_bio, estudiante*_hobbie, correo, contrasenia, bio, hobbie  :string
+inicio  :boolean
+intentos, opcion, opcion_principal    :integer
+
+'''
+
 #Para ocultar los caracteres
 import getpass
 #Para limpiar la consola
@@ -21,7 +28,7 @@ estudiante3_contrasenia ="555666"
 estudiante3_fec=""
 estudiante3_bio=""
 estudiante3_hobbie=""
-correo=""
+# correo=""
 
 inicio=False
 
@@ -36,24 +43,21 @@ def login():
     #Var a usar
     global inicio
     global correo
-    #correo=""
-    contrasenia=""
     intentos = 3
     while intentos > 0 :
         correo= input ("Ingrese su correo electronico: ")
-        contrasenia = input("Ingrese la contrasenia: ")
-        #contrasenia == getpass.getpass("Ingrese la contrasenia: ")
+        contrasenia = getpass.getpass("Ingrese la contrasenia: ")
         if (correo == estudiante1_email and contrasenia == estudiante1_contrasenia) or (correo == estudiante2_email and contrasenia == estudiante2_contrasenia) or (correo == estudiante3_email and contrasenia == estudiante3_contrasenia):
             print ("Inicio de sesion correcto.")
             intentos = 0
             inicio = True
-            sleep(3)
+            sleep(2)
             limpiar_pantalla()
         else:
             intentos -=1
             print("Credenciales incorrectas.")
             print("Quedan ",intentos," intentos")
-            sleep(3)
+            sleep(2)
             limpiar_pantalla()
 
 def menu_editar_datos_personales():
@@ -80,8 +84,8 @@ def menu_editar_datos_personales():
         fec=estudiante3_fec
         bio=estudiante3_bio
         hobbie=estudiante3_hobbie
-    opc=1
-    while opc!="4":
+    opcion=1
+    while opcion!="4":
         print("Sus datos actuales son: ")
         print("Su fecha de nacimiento es: ",fec)
         print("Su biografia es: ",bio)
@@ -91,13 +95,14 @@ def menu_editar_datos_personales():
         print("2. Biografia")
         print("3. Hobbie")
         print("4. Salir")
-        opc= int(input("Ingrese el numero: "))
-        if opc==1:
-            fec=input("Ingrese la nueva fecha de nacimiento en formato YYYY-MM-DD : ")
-        if opc==2:
-            bio=input("Ingrese la nueva biografia: ")
-        if opc==3:
-            hobbie=input("Ingrese el nuevo hobbie: ")
+        opcion= int(input("Ingrese el numero: "))
+        match opcion:
+            case 1:
+                fec=input("Ingrese la nueva fecha de nacimiento en formato YYYY-MM-DD : ")
+            case 2:
+                bio=input("Ingrese la nueva biografia: ")
+            case 3:
+                hobbie=input("Ingrese el nuevo hobbie: ")
     #Asigno el valor de las variables auxiliares al estudiante
     if correo==estudiante1_email:
         estudiante1_fec=fec
@@ -129,16 +134,16 @@ def menu_print_gestion_perfil():
 def menu_opc_gestion_perfil():
     limpiar_pantalla()
     menu_print_gestion_perfil()
-    opc = input("Ingrese una opcion: ")
-    while opc != "c":
-        if opc== "a":
+    opcion = input("Ingrese una opcion: ")
+    while opcion != "c":
+        if opcion== "a":
             menu_editar_datos_personales()
         #Para esta entrega los otros menúes no andan
         else:
             print("En construccion")
         limpiar_pantalla()
         menu_print_gestion_perfil()
-        opc = input("Ingrese una opcion: ")
+        opcion = input("Ingrese una opcion: ")
     
 def menu_print_gestion_candidatos():
     print("2. Gestionar candidatos")
@@ -149,16 +154,16 @@ def menu_print_gestion_candidatos():
 def menu_opc_gestion_candidatos():
     limpiar_pantalla()
     menu_print_gestion_candidatos()
-    opc = input("Ingrese una opcion: ")
-    while opc != "c":
-        if opc== "a":
+    opcion = input("Ingrese una opcion: ")
+    while opcion != "c":
+        if opcion== "a":
             print("Menu ver candidatos")
         #Para esta entrega los otros menúes no andan
         else:
             print("En construccion")
         limpiar_pantalla()
         menu_print_gestion_candidatos()
-        opc = input("Ingrese una opcion: ")
+        opcion = input("Ingrese una opcion: ")
     
 def menu_print_matcheos():
     print("3. Matcheos")
@@ -169,38 +174,38 @@ def menu_print_matcheos():
 def menu_opc_matcheos():
     limpiar_pantalla()
     menu_print_matcheos()
-    # opc = input("Ingrese una opcion: ")
-    # while opc != "c":
-    #     if opc== "a":
+    # opcion = input("Ingrese una opcion: ")
+    # while opcion != "c":
+    #     if opcion== "a":
     #         print("Menu ver candidatos")
     #     #Para esta entrega los otros menúes no andan
     #     else:
     #         print("En construccion")
     #     limpiar_pantalla()
     #     menu_print_matcheos()
-    #     opc = input("Ingrese una opcion: ")
+    #     opcion = input("Ingrese una opcion: ")
     
 ###Programa###
 
     
 login()
-if inicio == True:
+if inicio:
     opc_principal=1
     while opc_principal != 0:
         limpiar_pantalla()
         menu_principal()
         opc_principal = int(input("Ingrese opcion: "))
-        if opc_principal == 1:
-            menu_opc_gestion_perfil()
-        elif opc_principal == 2:
-            menu_opc_gestion_candidatos()
-        elif opc_principal ==3:
-            menu_opc_matcheos()
-        elif opc_principal==4:
-            print("En construccion")
+        match opc_principal:
+            case 1:
+                menu_opc_gestion_perfil()
+            case 2:
+                menu_opc_gestion_candidatos()
+            case 3:
+                menu_opc_matcheos()
+            case 4:
+                print("En construccion")
         limpiar_pantalla()
     print("El sistema se cerrara.")
 else:
     print("Ingreso incorrectamente las credenciales. El sistema se cerrara")
     
-
