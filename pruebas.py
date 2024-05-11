@@ -1,11 +1,30 @@
-import sys
-def limpiar(n=1):
-    for _ in range(n):
-        sys.stdout.write("\x1b[1A")  # cursor up one line
-        sys.stdout.write("\x1b[2K")  # delete the last line
+import random
 
+mf1_nombre = ("Ichi")
+mf2_nombre = ("Ni")
+mf3_nombre = ("San")
 
-num = range(1,11)  # hace 10 lineas
-for n in num:
-    print(n)
-limpiar(5)  # limpia (5) lineas
+#nom_A = input("n1")
+prob_A = int(input("proA"))
+
+#nom_B = input("n2")
+prob_B = int(input("proB"))
+
+#nom_C = input("n3")
+prob_C = int(input("proC"))
+
+while prob_A + prob_B + prob_C != 100:
+    print(prob_A + prob_B + prob_C, "?")
+    prob_A = int(input("p1"))
+    prob_B = int(input("p2"))
+    prob_C = int(input("p3"))
+
+numran = random.randint(0,100)
+print("se rolleo un dado de:",  numran)
+
+if numran >= 0 and numran < prob_A:
+    print(mf1_nombre)
+elif numran >= prob_A and numran < prob_B + prob_A:
+    print(mf2_nombre)
+else: ### necesitamos listas para literalmente todo si quieren buen codigo
+     print(mf3_nombre)
