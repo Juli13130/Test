@@ -16,24 +16,27 @@ import os
 from time import sleep
 # Para ruleta
 import random
+# Para calcular la edad
+from datetime import datetime
+
 
 # Usuarios y variables
 estudiante1_nombre = "juan 1"
 estudiante1_email = "estudiante1@ayed.com"
 estudiante1_contrasenia = "111222"
-estudiante1_fec = ""
+estudiante1_fec = "1997-09-03"
 estudiante1_bio = ""
 estudiante1_hobbie = ""
 estudiante2_nombre = "juan 2"
 estudiante2_email = "estudiante2@ayed.com"
 estudiante2_contrasenia = "333444"
-estudiante2_fec = ""
+estudiante2_fec = "2000-05-05"
 estudiante2_bio = ""
 estudiante2_hobbie = ""
 estudiante3_nombre = "juan 3"
 estudiante3_email = "estudiante3@ayed.com"
 estudiante3_contrasenia = "555666"
-estudiante3_fec = ""
+estudiante3_fec = "2000-06-01"
 estudiante3_bio = ""
 estudiante3_hobbie = ""
 # correo=""
@@ -174,7 +177,7 @@ def menu_opc_gestion_candidatos():
     opcion = input("Ingrese una opcion: ")
     while opcion != "c":
         if opcion == "a":
-            print("Menu ver candidatos")
+            menuvercandidatos()
         # Para esta entrega los otros menúes no andan
         else:
             print("En construccion")
@@ -182,6 +185,54 @@ def menu_opc_gestion_candidatos():
         menu_print_gestion_candidatos()
         opcion = input("Ingrese una opcion: ")
 
+def vercandidatos():
+
+    global estudiante1_fec
+    global estudiante1_bio
+    global estudiante1_hobbie
+    global estudiante2_fec
+    global estudiante2_bio
+    global estudiante2_hobbie
+    global estudiante3_fec
+    global estudiante3_bio
+    global estudiante3_hobbie
+
+    print("Candidatos: ")
+    print("Nombre del candidato 1: ",estudiante1_nombre)
+    print("Fecha de nacimiento del candidato 1: ",estudiante1_fec)
+    print("Edad del candidato 1: ", calcularedad(estudiante1_fec))
+    print("Biografia del estudiante 1: ",estudiante1_bio)
+    print("Hobbie del estudiante 1 : ",estudiante1_hobbie)
+    print("/n")
+    print("Nombre del candidato 2: ",estudiante2_nombre)
+    print("Fecha de nacimiento del candidato 2: ",estudiante2_fec)
+    print("Edad del candidato 2: ", calcularedad(estudiante2_fec))
+    print("Biografia del estudiante 2: ",estudiante2_bio)
+    print("Hobbie del estudiante 2 : ",estudiante2_hobbie)
+    print("/n")
+    print("Nombre del candidato 3: ",estudiante3_nombre)
+    print("Fecha de nacimiento del candidato 3: ",estudiante3_fec)
+    print("Edad del candidato 3: ", calcularedad(estudiante3_fec))
+    print("Biografia del estudiante 3: ",estudiante3_bio)
+    print("Hobbie del estudiante 3 : ",estudiante3_hobbie)
+    print("/n")
+
+def calcularedad(fechadenacimiento):
+    fechadenacimiento=datetime.strptime(fechadenacimiento,'%Y-%m-%d')
+    hoy=datetime.now()
+    edad=hoy.year-fechadenacimiento.year
+    if (hoy.month,hoy.day) < (fechadenacimiento.month, fechadenacimiento.day):
+        edad = edad-1
+    return edad
+
+def menuvercandidatos():
+    limpiar_pantalla()
+    vercandidatos()
+    mgestudiante1=input("Ingrese el nombre del estudiante que le gusta: ")
+    while mgestudiante1 != estudiante1_nombre or mgestudiante1 != estudiante2_nombre or mgestudiante1 != estudiante3_nombre:
+        print("Ingreso el nombre de forma incorrecta.")
+        vercandidatos()
+        mgestudiante1=input("Ingrese el nombre del estudiante que le gusta: ")
 
 def menu_print_matcheos():
     print("3. Matcheos")
