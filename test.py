@@ -134,7 +134,7 @@ def menu_editar_datos_personales():
 
 
 def menu_principal():
-    print("\n")
+    #print("\n")
     print("1. Gestionar mi perfil")
     print("2. Gestionar candidatos")
     print("3. Matcheos")
@@ -203,19 +203,19 @@ def vercandidatos():
     print("Edad del candidato 1: ", calcularedad(estudiante1_fec))
     print("Biografia del estudiante 1: ",estudiante1_bio)
     print("Hobbie del estudiante 1 : ",estudiante1_hobbie)
-    print("/n")
+    print("")
     print("Nombre del candidato 2: ",estudiante2_nombre)
     print("Fecha de nacimiento del candidato 2: ",estudiante2_fec)
     print("Edad del candidato 2: ", calcularedad(estudiante2_fec))
     print("Biografia del estudiante 2: ",estudiante2_bio)
     print("Hobbie del estudiante 2 : ",estudiante2_hobbie)
-    print("/n")
+    print("")
     print("Nombre del candidato 3: ",estudiante3_nombre)
     print("Fecha de nacimiento del candidato 3: ",estudiante3_fec)
     print("Edad del candidato 3: ", calcularedad(estudiante3_fec))
     print("Biografia del estudiante 3: ",estudiante3_bio)
     print("Hobbie del estudiante 3 : ",estudiante3_hobbie)
-    print("/n")
+    print("")
 
 def calcularedad(fechadenacimiento):
     fechadenacimiento=datetime.strptime(fechadenacimiento,'%Y-%m-%d')
