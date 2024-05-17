@@ -186,17 +186,6 @@ def menu_opc_gestion_candidatos():
         opcion = input("Ingrese una opcion: ")
 
 def vercandidatos():
-
-    global estudiante1_fec
-    global estudiante1_bio
-    global estudiante1_hobbie
-    global estudiante2_fec
-    global estudiante2_bio
-    global estudiante2_hobbie
-    global estudiante3_fec
-    global estudiante3_bio
-    global estudiante3_hobbie
-
     print("Candidatos: ")
     print("Nombre del candidato 1: ",estudiante1_nombre)
     print("Fecha de nacimiento del candidato 1: ",estudiante1_fec)
