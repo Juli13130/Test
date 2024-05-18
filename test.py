@@ -128,9 +128,20 @@ def menu_editar_datos_personales():
         match opcion:
             case 1:
                 fec = input("Ingrese la nueva fecha de nacimiento en formato YYYY-MM-DD : ")
-                while calcularedad(fec)<0:
-                    print("La fecha de nacimiento no puede ser mayor a la fecha de hoy")
-                    input("Ingrese correctamente la nueva fecha de nacimiento en formato YYYY-MM-DD : ")
+                fec=datetime.strptime(fec,'%Y-%m-%d').date()
+                hoy=datetime.now()
+                while (hoy.year < fec.year) or (hoy.year - fec.year) > 150  :
+                    print("El año no puede ser posterior al actual o anterior a 150 años")
+                    fec = input("Ingrese la nueva fecha de nacimiento en formato YYYY-MM-DD : ")
+                    fec=datetime.strptime(fec,'%Y-%m-%d').date()
+                while (hoy.year == fec.year) and (hoy.month < fec.month) :
+                    print("El mes no puede ser posterior al actual")
+                    fec = input("Ingrese la nueva fecha de nacimiento en formato YYYY-MM-DD : ")
+                    fec=datetime.strptime(fec,'%Y-%m-%d').date()
+                while (hoy.year == fec.year and hoy.month == fec.month and hoy.day < fec.day) :
+                    print("El día no puede ser posterior al actual")
+                    fec = input("Ingrese la nueva fecha de nacimiento en formato YYYY-MM-DD : ")
+                    fec=datetime.strptime(fec,'%Y-%m-%d').date()
             case 2:
                 bio = input("Ingrese la nueva biografia: ")
             case 3:
