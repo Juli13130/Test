@@ -19,26 +19,33 @@ import random
 # Para calcular la edad
 from datetime import datetime
 
+automatico = True
 
 # Usuarios y variables
 estudiante1_nombre = "juan 1"
 estudiante1_email = "estudiante1@ayed.com"
 estudiante1_contrasenia = "111222"
 estudiante1_fec = "1997-09-03"
-estudiante1_bio = ""
-estudiante1_hobbie = ""
+estudiante1_bio = "Hola, soy Juan 1 :)"
+estudiante1_hobbie = "Matar mosquitos"
 estudiante2_nombre = "juan 2"
 estudiante2_email = "estudiante2@ayed.com"
 estudiante2_contrasenia = "333444"
 estudiante2_fec = "2000-05-05"
-estudiante2_bio = ""
-estudiante2_hobbie = ""
+estudiante2_bio = "Hola, soy Juan 2 :)"
+estudiante2_hobbie = "Soy skater 8)"
 estudiante3_nombre = "juan 3"
 estudiante3_email = "estudiante3@ayed.com"
 estudiante3_contrasenia = "555666"
 estudiante3_fec = "2000-06-01"
-estudiante3_bio = ""
-estudiante3_hobbie = ""
+estudiante3_bio = "Hola, soy Juan 3 :)"
+estudiante3_hobbie = "Fulbito"
+estudiante4_nombre = "juan 4"
+estudiante4_email = "estudiante4@ayed.com"
+estudiante4_contrasenia = "777888"
+estudiante4_fec = "1980-06-01"
+estudiante4_bio = "Hola, soy Juan 4 :)"
+estudiante4_hobbie = "CS 1.6"
 # correo=""
 
 inicio = False
@@ -83,6 +90,9 @@ def menu_editar_datos_personales():
     global estudiante3_fec
     global estudiante3_bio
     global estudiante3_hobbie
+    global estudiante4_fec
+    global estudiante4_bio
+    global estudiante4_hobbie
     # Asigno los datos del estudiante a las variables auxiliares.
     if correo == estudiante1_email:
         fec = estudiante1_fec
@@ -96,6 +106,10 @@ def menu_editar_datos_personales():
         fec = estudiante3_fec
         bio = estudiante3_bio
         hobbie = estudiante3_hobbie
+    if correo == estudiante4_email:
+        fec = estudiante4_fec
+        bio = estudiante4_bio
+        hobbie = estudiante4_hobbie
     opcion = 0
     while opcion != "4":
         print("Sus datos actuales son: ")
@@ -114,6 +128,9 @@ def menu_editar_datos_personales():
         match opcion:
             case 1:
                 fec = input("Ingrese la nueva fecha de nacimiento en formato YYYY-MM-DD : ")
+                while calcularedad(fec)<0:
+                    print("La fecha de nacimiento no puede ser mayor a la fecha de hoy")
+                    input("Ingrese correctamente la nueva fecha de nacimiento en formato YYYY-MM-DD : ")
             case 2:
                 bio = input("Ingrese la nueva biografia: ")
             case 3:
@@ -131,6 +148,10 @@ def menu_editar_datos_personales():
         estudiante3_fec = fec
         estudiante3_bio = bio
         estudiante3_hobbie = hobbie
+    if correo == estudiante4_email:
+        estudiante4_fec = fec
+        estudiante4_bio = bio
+        estudiante4_hobbie = hobbie
 
 
 def menu_principal():
@@ -217,11 +238,11 @@ def calcularedad(fechadenacimiento):
 def menuvercandidatos():
     limpiar_pantalla()
     vercandidatos()
-    mgestudiante1=input("Ingrese el nombre del estudiante que le gusta: ")
-    while mgestudiante1 != estudiante1_nombre or mgestudiante1 != estudiante2_nombre or mgestudiante1 != estudiante3_nombre:
+    mgestudiante=input("Ingrese el nombre del estudiante que le gusta: ")
+    while mgestudiante != estudiante1_nombre or mgestudiante != estudiante2_nombre or mgestudiante != estudiante3_nombre or mgestudiante != estudiante4_nombre:
         print("Ingreso el nombre de forma incorrecta.")
         vercandidatos()
-        mgestudiante1=input("Ingrese el nombre del estudiante que le gusta: ")
+        mgestudiante=input("Ingrese el nombre del estudiante que le gusta: ")
 
 def menu_print_matcheos():
     print("3. Matcheos")
@@ -245,6 +266,14 @@ def menu_opc_matcheos():
         menu_print_matcheos()
         opcion = input("Ingrese una opcion: ")
 
+def ruleta_instrucciones():
+    print("La Ruleta de afinidad es una forma de seleccionar tu matcheo")
+    print("usando tu afinidad con tres personas!")
+    print("Puedes elegir ser matcheado automaticamente o solo mostrar el nombre")
+    print("(necesitaras el nombre exacto para hacerlo automaticamente asi que seria buena idea ir a [Gestion de candidatos])")
+    print(" 0-Salir")
+    print(" 1-Automatico")
+    print(" 2-Manual")
 
 def menu_ruleta():
     limpiar_pantalla()
@@ -262,8 +291,12 @@ def menu_ruleta():
             case 2:
                 ruleta()
 
+# La expresión estudiante1_nombre or estudiante2_nombre or estudiante3_nombre or estudiante4_nombre siempre será evaluada como verdadera,
+# ya que todas estas variables son cadenas de texto, 
+#y en Python cualquier cadena no vacía se considera verdadera en un contexto booleano
 
 def ruleta():
+    global automatico
     numran = random.randint(0, 100)
     if automatico is False:
         nombre_A = input("Persona #1: ")
@@ -271,51 +304,42 @@ def ruleta():
         nombre_C = input("Persona #3: ")
     else:
         nombre_A = input("Nombre #1: ")
-        while nombre_A is not estudiante1_nombre or estudiante2_nombre or estudiante3_nombre:
+        while nombre_A != estudiante1_nombre and nombre_A != estudiante2_nombre and nombre_A != estudiante3_nombre and nombre_A != estudiante4_nombre:
+            print("Ingrese correctamente el nombre")
             nombre_A = input("Nombre #1: ")
-        nombre_B = input("Nombre #1: ")
-        while nombre_B is not estudiante1_nombre or estudiante2_nombre or estudiante3_nombre:
-            nombre_B = input("Nombre #1: ")
-        nombre_C = input("Nombre #1: ")
-        while nombre_C is not estudiante1_nombre or estudiante2_nombre or estudiante3_nombre:
-            nombre_C = input("Nombre #1: ")
+        nombre_B = input("Nombre #2: ")
+        while nombre_B != estudiante1_nombre and nombre_B != estudiante2_nombre and nombre_B != estudiante3_nombre and nombre_B != estudiante4_nombre or nombre_B == nombre_A:
+            nombre_B = input("Nombre #2: ")
+        nombre_C = input("Nombre #3: ")
+        while nombre_C != estudiante1_nombre and nombre_C != estudiante2_nombre and nombre_C != estudiante3_nombre and nombre_C != estudiante4_nombre or nombre_C == nombre_B or nombre_C == nombre_A:
+            nombre_C = input("Nombre #3: ")
     print("Ahora asignamos nuestra afinidad con ellos")
-    print("solo tienes 100 puntos de afinidad para distribuir")
-    probabilidad_A = int(input("Afinidad con ", nombre_A, ": "))
-    probabilidad_B = int(input("Afinidad con ", nombre_B, ": "))
-    probabilidad_C = int(input("Afinidad con ", nombre_C, ": "))
+    print("Solo tienes 100 puntos de afinidad para distribuir")
+    probabilidad_A = int(input("Afinidad con " + nombre_A + ": "))
+    probabilidad_B = int(input("Afinidad con " + nombre_B + ": "))
+    probabilidad_C = int(input("Afinidad con " + nombre_C + ": "))
     while probabilidad_A + probabilidad_B + probabilidad_C != 100:
+        print("La afinidad no puede ser mayor a 100")
         print(probabilidad_A + probabilidad_B + probabilidad_C, "?")
-        probabilidad_A = int(input("Afinidad con ", nombre_A, ": "))
-        probabilidad_B = int(input("Afinidad con ", nombre_B, ": "))
-        probabilidad_C = int(input("Afinidad con ", nombre_C, ": "))
-    print("Se tiro un dado de ", numran, " ", probabilidad_C, " es el sobrante")
-    sleep(0.5)
+        probabilidad_A = int(input("Afinidad con " + nombre_A + ": "))
+        probabilidad_B = int(input("Afinidad con " + nombre_B + ": "))
+        probabilidad_C = int(input("Afinidad con " + nombre_C + ": "))
+    print(f"Se tiro un dado de {numran} , {probabilidad_C} es el sobrante")
+    sleep(2)
     limpiar_pantalla()
     if numran < probabilidad_A:
-        print(nombre_A)
+        print("Hiciste match con: ",nombre_A)
         if automatico:
             print("Matcheo añadido")
             # ############################## necesito registro de matcheos o algo
     elif numran >= probabilidad_A and numran < probabilidad_B + probabilidad_A:
-        print(nombre_B)
+        print("Hiciste match con: ",nombre_B)
         if automatico:
             print("Matcheo añadido")
     else:
-        print(nombre_C)
+        print("Hiciste match con: ",nombre_C)
         if automatico:
             print("Matcheo añadido")
-
-
-def ruleta_instrucciones():
-    print("La Ruleta de afinidad es una forma de seleccionar tu matcheo")
-    print("usando tu afinidad con tres personas!")
-    print("Puedes elegir ser matcheado automaticamente o solo mostrar el nombre")
-    print("(necesitaras el nombre exacto para hacerlo automaticamente asi que seria buena idea ir a [Gestion de candidatos])")
-    print(" 0-Salir")
-    print(" 1-automatico")
-    print(" 2-Manual")
-
 
 # ##Programa## #
 login()
