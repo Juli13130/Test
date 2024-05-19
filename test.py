@@ -1,5 +1,5 @@
 #Integrantes:
-#Julian
+#Julian Fernández
 #Alejo Aguëro
 #Matias Fernandez
 #Kevin Jordan Dorko
