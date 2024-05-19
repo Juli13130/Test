@@ -19,8 +19,6 @@ import random
 # Para calcular la edad
 from datetime import datetime
 
-automatico = True
-
 # Usuarios y variables
 estudiante1_nombre = "juan 1"
 estudiante1_email = "estudiante1@ayed.com"
@@ -166,7 +164,6 @@ def menu_editar_datos_personales():
 
 
 def menu_principal():
-    #print("\n")
     print("1. Gestionar mi perfil")
     print("2. Gestionar candidatos")
     print("3. Matcheos")
@@ -186,11 +183,11 @@ def menu_opc_gestion_perfil():
     menu_print_gestion_perfil()
     opcion = input("Ingrese una opcion: ")
     while opcion != "c":
-        if opcion == "a":
-            menu_editar_datos_personales()
-        # Para esta entrega los otros menúes no andan
-        else:
-            print("En construccion")
+        match opcion:
+            case "a":
+                menu_editar_datos_personales()
+            case "b":
+                print("En construccion...")
         limpiar_pantalla()
         menu_print_gestion_perfil()
         opcion = input("Ingrese una opcion: ")
@@ -208,35 +205,102 @@ def menu_opc_gestion_candidatos():
     menu_print_gestion_candidatos()
     opcion = input("Ingrese una opcion: ")
     while opcion != "c":
-        if opcion == "a":
-            menuvercandidatos()
-        # Para esta entrega los otros menúes no andan
-        else:
-            print("En construccion")
+        match opcion:
+            case "a":
+                menuvercandidatos()
+            case _:
+                print("En construccion...")
+                sleep(5)
         limpiar_pantalla()
         menu_print_gestion_candidatos()
         opcion = input("Ingrese una opcion: ")
 
 def vercandidatos():
-    print("Candidatos: ")
-    print("Nombre del candidato 1: ",estudiante1_nombre)
-    print("Fecha de nacimiento del candidato 1: ",estudiante1_fec)
-    print("Edad del candidato 1: ", calcularedad(estudiante1_fec))
-    print("Biografia del estudiante 1: ",estudiante1_bio)
-    print("Hobbie del estudiante 1 : ",estudiante1_hobbie)
-    print("")
-    print("Nombre del candidato 2: ",estudiante2_nombre)
-    print("Fecha de nacimiento del candidato 2: ",estudiante2_fec)
-    print("Edad del candidato 2: ", calcularedad(estudiante2_fec))
-    print("Biografia del estudiante 2: ",estudiante2_bio)
-    print("Hobbie del estudiante 2 : ",estudiante2_hobbie)
-    print("")
-    print("Nombre del candidato 3: ",estudiante3_nombre)
-    print("Fecha de nacimiento del candidato 3: ",estudiante3_fec)
-    print("Edad del candidato 3: ", calcularedad(estudiante3_fec))
-    print("Biografia del estudiante 3: ",estudiante3_bio)
-    print("Hobbie del estudiante 3 : ",estudiante3_hobbie)
-    print("")
+
+    if correo == estudiante1_email:
+        print("Candidatos: ")
+        print("")
+        print("Nombre del candidato: ",estudiante2_nombre)
+        print("Fecha de nacimiento del candidato: ",estudiante2_fec)
+        print("Edad del candidato: ", calcularedad(estudiante2_fec))
+        print("Biografia del estudiante: ",estudiante2_bio)
+        print("Hobbie del estudiante: ",estudiante2_hobbie)
+        print("")
+        print("Nombre del candidato: ",estudiante3_nombre)
+        print("Fecha de nacimiento del candidato: ",estudiante3_fec)
+        print("Edad del candidato: ", calcularedad(estudiante3_fec))
+        print("Biografia del estudiante: ",estudiante3_bio)
+        print("Hobbie del estudiante: ",estudiante3_hobbie)
+        print("")
+        print("Nombre del candidato: ",estudiante4_nombre)
+        print("Fecha de nacimiento del candidato: ",estudiante4_fec)
+        print("Edad del candidato: ", calcularedad(estudiante4_fec))
+        print("Biografia del estudiante: ",estudiante4_bio)
+        print("Hobbie del estudiante: ",estudiante4_hobbie)
+        print("")
+
+    elif correo == estudiante2_email:
+        print("Candidatos: ")
+        print("Nombre del candidato: ",estudiante1_nombre)
+        print("Fecha de nacimiento del candidato: ",estudiante1_fec)
+        print("Edad del candidato: ", calcularedad(estudiante1_fec))
+        print("Biografia del estudiante: ",estudiante1_bio)
+        print("Hobbie del estudiante: ",estudiante1_hobbie)
+        print("")
+        print("Nombre del candidato: ",estudiante3_nombre)
+        print("Fecha de nacimiento del candidato: ",estudiante3_fec)
+        print("Edad del candidato: ", calcularedad(estudiante3_fec))
+        print("Biografia del estudiante: ",estudiante3_bio)
+        print("Hobbie del estudiante: ",estudiante3_hobbie)
+        print("")
+        print("Nombre del candidato: ",estudiante4_nombre)
+        print("Fecha de nacimiento del candidato: ",estudiante4_fec)
+        print("Edad del candidato: ", calcularedad(estudiante4_fec))
+        print("Biografia del estudiante: ",estudiante4_bio)
+        print("Hobbie del estudiante: ",estudiante4_hobbie)
+        print("")
+    
+    elif correo == estudiante3_email:
+        print("Candidatos: ")
+        print("Nombre del candidato: ",estudiante1_nombre)
+        print("Fecha de nacimiento del candidato: ",estudiante1_fec)
+        print("Edad del candidato: ", calcularedad(estudiante1_fec))
+        print("Biografia del estudiante: ",estudiante1_bio)
+        print("Hobbie del estudiante: ",estudiante1_hobbie)
+        print("")
+        print("Nombre del candidato: ",estudiante2_nombre)
+        print("Fecha de nacimiento del candidato: ",estudiante2_fec)
+        print("Edad del candidato: ", calcularedad(estudiante2_fec))
+        print("Biografia del estudiante: ",estudiante2_bio)
+        print("Hobbie del estudiante: ",estudiante2_hobbie)
+        print("")
+        print("Nombre del candidato: ",estudiante4_nombre)
+        print("Fecha de nacimiento del candidato: ",estudiante4_fec)
+        print("Edad del candidato: ", calcularedad(estudiante4_fec))
+        print("Biografia del estudiante: ",estudiante4_bio)
+        print("Hobbie del estudiante: ",estudiante4_hobbie)
+        print("")
+
+    else:
+        print("Candidatos: ")
+        print("Nombre del candidato: ",estudiante1_nombre)
+        print("Fecha de nacimiento del candidato: ",estudiante1_fec)
+        print("Edad del candidato: ", calcularedad(estudiante1_fec))
+        print("Biografia del estudiante: ",estudiante1_bio)
+        print("Hobbie del estudiante: ",estudiante1_hobbie)
+        print("")
+        print("Nombre del candidato: ",estudiante2_nombre)
+        print("Fecha de nacimiento del candidato: ",estudiante2_fec)
+        print("Edad del candidato: ", calcularedad(estudiante2_fec))
+        print("Biografia del estudiante: ",estudiante2_bio)
+        print("Hobbie del estudiante: ",estudiante2_hobbie)
+        print("")
+        print("Nombre del candidato: ",estudiante3_nombre)
+        print("Fecha de nacimiento del candidato: ",estudiante3_fec)
+        print("Edad del candidato: ", calcularedad(estudiante3_fec))
+        print("Biografia del estudiante: ",estudiante3_bio)
+        print("Hobbie del estudiante: ",estudiante3_hobbie)
+        print("")
 
 def calcularedad(fechadenacimiento):
     fechadenacimiento=datetime.strptime(fechadenacimiento,'%Y-%m-%d')
@@ -247,11 +311,21 @@ def calcularedad(fechadenacimiento):
     return edad
 
 def menuvercandidatos():
+    if correo == estudiante1_email:
+        yo_candidato=estudiante1_nombre
+    elif correo == estudiante2_email:
+        yo_candidato=estudiante2_nombre
+    elif correo == estudiante3_email:
+        yo_candidato=estudiante3_nombre
+    else:
+        yo_candidato=estudiante4_nombre
     limpiar_pantalla()
     vercandidatos()
     mgestudiante=input("Ingrese el nombre del estudiante que le gusta: ")
-    while mgestudiante != estudiante1_nombre or mgestudiante != estudiante2_nombre or mgestudiante != estudiante3_nombre or mgestudiante != estudiante4_nombre:
-        print("Ingreso el nombre de forma incorrecta.")
+    while mgestudiante != estudiante1_nombre and mgestudiante != estudiante2_nombre and mgestudiante != estudiante3_nombre and mgestudiante != estudiante4_nombre or mgestudiante == yo_candidato:
+        print("Ingreso el nombre de forma incorrecta o se elijio a usted mismo.")
+        sleep(5)
+        limpiar_pantalla()
         vercandidatos()
         mgestudiante=input("Ingrese el nombre del estudiante que le gusta: ")
 
@@ -271,8 +345,13 @@ def menu_opc_matcheos():
         match opcion:
             case "a":
                 print("Menu ver candidatos")
+            case "b":
+                print("En construccion...")
             case "x":
                 menu_ruleta()
+            case _:
+                print("Ingrese una opcion correctamente.")
+                sleep(5)
         limpiar_pantalla()
         menu_print_matcheos()
         opcion = input("Ingrese una opcion: ")
@@ -282,48 +361,49 @@ def ruleta_instrucciones():
     print("usando tu afinidad con tres personas!")
     print("Puedes elegir ser matcheado automaticamente o solo mostrar el nombre")
     print("(necesitaras el nombre exacto para hacerlo automaticamente asi que seria buena idea ir a [Gestion de candidatos])")
-    print(" 0-Salir")
-    print(" 1-Automatico")
-    print(" 2-Manual")
+    print(" 1. Ruleta")
+    print(" 0. Salir")
 
 def menu_ruleta():
-    limpiar_pantalla()
-    ruleta_instrucciones()
-    seleccion_numerica = input("Ingrese una opcion: ")
-    while not seleccion_numerica.isnumeric():
-        seleccion_numerica = input("Ingrese una opcion (por su num): ")
-    opcion_ruleta = int(seleccion_numerica)
-    while seleccion_numerica != 0:
+    opcion_ruleta = 1
+    while opcion_ruleta != 0:
+        limpiar_pantalla()
+        ruleta_instrucciones()
+        seleccion_numerica = input("Ingrese su opcion: ")
+        while not seleccion_numerica.isnumeric() or int(seleccion_numerica)>1 or int(seleccion_numerica)<0 :
+            print("Ingreso incorrectamente.")
+            sleep(5)
+            seleccion_numerica = input("Ingrese su opcion: ")
+        opcion_ruleta = int(seleccion_numerica)
         match opcion_ruleta:
             case 1:
-                global automatico
-                automatico = True
-                ruleta()
-            case 2:
                 ruleta()
 
-# La expresión estudiante1_nombre or estudiante2_nombre or estudiante3_nombre or estudiante4_nombre siempre será evaluada como verdadera,
-# ya que todas estas variables son cadenas de texto, 
-#y en Python cualquier cadena no vacía se considera verdadera en un contexto booleano
+        
+
 
 def ruleta():
-    global automatico
     numran = random.randint(0, 100)
-    if automatico is False:
-        nombre_A = input("Persona #1: ")
-        nombre_B = input("Persona #2: ")
-        nombre_C = input("Persona #3: ")
+    if correo == estudiante1_email:
+        yo_candidato=estudiante1_nombre
+    elif correo == estudiante2_email:
+        yo_candidato=estudiante2_nombre
+    elif correo == estudiante3_email:
+        yo_candidato=estudiante3_nombre
     else:
+        yo_candidato=estudiante4_nombre
+    nombre_A = input("Nombre #1: ")
+    while nombre_A != estudiante1_nombre and nombre_A != estudiante2_nombre and nombre_A != estudiante3_nombre and nombre_A != estudiante4_nombre or nombre_A == yo_candidato:
+        print("Ingrese correctamente el nombre o no puede ser usted mismo")
         nombre_A = input("Nombre #1: ")
-        while nombre_A != estudiante1_nombre and nombre_A != estudiante2_nombre and nombre_A != estudiante3_nombre and nombre_A != estudiante4_nombre:
-            print("Ingrese correctamente el nombre")
-            nombre_A = input("Nombre #1: ")
+    nombre_B = input("Nombre #2: ")
+    while nombre_B != estudiante1_nombre and nombre_B != estudiante2_nombre and nombre_B != estudiante3_nombre and nombre_B != estudiante4_nombre or nombre_B == yo_candidato or nombre_B == nombre_A:
+        print("Ingrese correctamente el nombre o no puede ser usted mismo")
         nombre_B = input("Nombre #2: ")
-        while nombre_B != estudiante1_nombre and nombre_B != estudiante2_nombre and nombre_B != estudiante3_nombre and nombre_B != estudiante4_nombre or nombre_B == nombre_A:
-            nombre_B = input("Nombre #2: ")
+    nombre_C = input("Nombre #3: ")
+    while nombre_C != estudiante1_nombre and nombre_C != estudiante2_nombre and nombre_C != estudiante3_nombre and nombre_C != estudiante4_nombre or nombre_C == yo_candidato or nombre_C == nombre_B or nombre_C == nombre_A:
+        print("Ingrese correctamente el nombre o no puede ser usted mismo")
         nombre_C = input("Nombre #3: ")
-        while nombre_C != estudiante1_nombre and nombre_C != estudiante2_nombre and nombre_C != estudiante3_nombre and nombre_C != estudiante4_nombre or nombre_C == nombre_B or nombre_C == nombre_A:
-            nombre_C = input("Nombre #3: ")
     print("Ahora asignamos nuestra afinidad con ellos")
     print("Solo tienes 100 puntos de afinidad para distribuir")
     probabilidad_A = int(input("Afinidad con " + nombre_A + ": "))
@@ -335,22 +415,16 @@ def ruleta():
         probabilidad_A = int(input("Afinidad con " + nombre_A + ": "))
         probabilidad_B = int(input("Afinidad con " + nombre_B + ": "))
         probabilidad_C = int(input("Afinidad con " + nombre_C + ": "))
+    
     print(f"Se tiro un dado de {numran} , {probabilidad_C} es el sobrante")
     sleep(2)
     limpiar_pantalla()
     if numran < probabilidad_A:
         print("Hiciste match con: ",nombre_A)
-        if automatico:
-            print("Matcheo añadido")
-            # ############################## necesito registro de matcheos o algo
     elif numran >= probabilidad_A and numran < probabilidad_B + probabilidad_A:
         print("Hiciste match con: ",nombre_B)
-        if automatico:
-            print("Matcheo añadido")
     else:
         print("Hiciste match con: ",nombre_C)
-        if automatico:
-            print("Matcheo añadido")
 
 # ##Programa## #
 login()
@@ -360,8 +434,9 @@ if inicio:
         limpiar_pantalla()
         menu_principal()
         seleccion_numerica = input("Ingrese su seleccion: ")
-        while not seleccion_numerica.isnumeric():
-            seleccion_numerica = input("Ingrese su seleccion (por su numero): ")
+        while not seleccion_numerica.isnumeric() or int(seleccion_numerica)>4 or int(seleccion_numerica)<0 :
+            print("Ingreso incorrectamente.")
+            seleccion_numerica = input("Ingrese su seleccion: ")
         opc_principal = int(seleccion_numerica)
         match opc_principal:
             case 1:
