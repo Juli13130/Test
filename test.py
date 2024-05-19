@@ -1,5 +1,5 @@
 '''
-estudiante*nombre :string
+estudiante*nombre, estudiante*_email, estudiante*_contrasenia :string
 
 # los * significan diferentes variables similares
 '''
@@ -51,7 +51,7 @@ def limpiar_pantalla():
 
 
 '''
-estudiante*_email, estudiante*_contrasenia, correo, contrasenia : string
+correo, contrasenia : string
 intentos : integer
 inicio : boolean
 '''
@@ -320,6 +320,12 @@ def vercandidatos():
         print("")
 
 
+'''
+fechadenacimiento : string
+hoy, edad : integer
+'''
+
+
 def calcularedad(fechadenacimiento):
     fechadenacimiento = datetime.strptime(fechadenacimiento, '%Y-%m-%d')
     hoy = datetime.now()
@@ -327,6 +333,11 @@ def calcularedad(fechadenacimiento):
     if (hoy.month, hoy.day) < (fechadenacimiento.month, fechadenacimiento.day):
         edad = edad-1
     return edad
+
+
+'''
+yo_candidato, mgestudiante : string
+'''
 
 
 def menuvercandidatos():
@@ -414,8 +425,8 @@ def menu_ruleta():
 
 
 '''
-nombre_* : string
-probabilidad_* : integer
+yo_candidato, nombre_* : string
+numran, probabilidad_* : integer
 '''
 
 
@@ -469,7 +480,6 @@ def ruleta():
 '''
 seleccion_numerica : string
 opc_principal : integer
-inicio : boolean
 '''
 
 login()
