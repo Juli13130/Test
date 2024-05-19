@@ -1,7 +1,5 @@
 '''
-estudiante*nombre, estudiante*_email, estudiante*_contrasenia, estudiante*_fec, estudiante*_bio, estudiante*_hobbie, correo, contrasenia, bio, hobbie, fec, seleccion_numerica, nombre_*  :string
-inicio, automatico  :boolean
-intentos, opcion, opcion_principal, opcion_ruleta, probabilidad_*    :integer
+estudiante*nombre :string
 
 # los * significan diferentes variables similares
 '''
@@ -42,7 +40,6 @@ estudiante4_contrasenia = "777888"
 estudiante4_fec = "1980-06-01"
 estudiante4_bio = "Hola, soy Juan 4 :)"
 estudiante4_hobbie = "CS 1.6"
-# correo=""
 
 inicio = False
 
@@ -51,6 +48,13 @@ def limpiar_pantalla():
     os.system('cls')
 
 # Login
+
+
+'''
+estudiante*_email, estudiante*_contrasenia, correo, contrasenia : string
+intentos : integer
+inicio : boolean
+'''
 
 
 def login():
@@ -75,8 +79,13 @@ def login():
             limpiar_pantalla()
 
 
+'''
+estudiante*_fec estudiante*_bio estudiante*_hobbie fec bio hobbie  seleccion_numerica : string
+opcion : integer
+'''
+
+
 def menu_editar_datos_personales():
-    global correo
     global estudiante1_fec
     global estudiante1_bio
     global estudiante1_hobbie
@@ -176,6 +185,11 @@ def menu_print_gestion_perfil():
     print(" c. Volver")
 
 
+'''
+opcion : integer
+'''
+
+
 def menu_opc_gestion_perfil():
     limpiar_pantalla()
     menu_print_gestion_perfil()
@@ -196,6 +210,11 @@ def menu_print_gestion_candidatos():
     print(" a. Ver candidatos")
     print(" b. Reportar un candidato")
     print(" c. Volver")
+
+
+'''
+opcion : integer
+'''
 
 
 def menu_opc_gestion_candidatos():
@@ -338,6 +357,11 @@ def menu_print_matcheos():
     print(" x. Ruleta de afinidad")
 
 
+'''
+opcion : integer
+'''
+
+
 def menu_opc_matcheos():
     limpiar_pantalla()
     menu_print_matcheos()
@@ -367,6 +391,12 @@ def ruleta_instrucciones():
     print(" 0. Salir")
 
 
+'''
+seleccion_numerica : string
+opcion_ruleta : integer
+'''
+
+
 def menu_ruleta():
     opcion_ruleta = 1
     while opcion_ruleta != 0:
@@ -381,6 +411,12 @@ def menu_ruleta():
         match opcion_ruleta:
             case 1:
                 ruleta()
+
+
+'''
+nombre_* : string
+probabilidad_* : integer
+'''
 
 
 def ruleta():
@@ -429,6 +465,12 @@ def ruleta():
 
 # ##Programa## #
 
+
+'''
+seleccion_numerica : string
+opc_principal : integer
+inicio : boolean
+'''
 
 login()
 if inicio:
