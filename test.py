@@ -109,7 +109,7 @@ def menu_editar_datos_personales():
         bio = estudiante4_bio
         hobbie = estudiante4_hobbie
     opcion = 0
-    while opcion != "4":
+    while opcion != 4:
         print("Sus datos actuales son: ")
         print("Su fecha de nacimiento es: ", fec)
         print("Su biografia es: ", bio)
