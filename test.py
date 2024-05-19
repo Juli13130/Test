@@ -63,7 +63,7 @@ def login():
     while intentos > 0:
         correo = input("Ingrese su correo electronico: ")
         contrasenia = getpass.getpass("Ingrese la contrasenia: ")
-        if (correo == estudiante1_email and contrasenia == estudiante1_contrasenia) or (correo == estudiante2_email and contrasenia == estudiante2_contrasenia) or (correo == estudiante3_email and contrasenia == estudiante3_contrasenia):
+        if (correo == estudiante1_email and contrasenia == estudiante1_contrasenia) or (correo == estudiante2_email and contrasenia == estudiante2_contrasenia) or (correo == estudiante3_email and contrasenia == estudiante3_contrasenia) or (correo == estudiante4_email and contrasenia == estudiante4_contrasenia):
             print("Inicio de sesion correcto.")
             intentos = 0
             inicio = True
