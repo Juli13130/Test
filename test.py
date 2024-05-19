@@ -396,7 +396,7 @@ def menu_opc_matcheos():
                 menu_ruleta()
             case _:
                 print("Ingrese una opcion correctamente.")
-                sleep(5)
+        sleep(5)
         limpiar_pantalla()
         menu_print_matcheos()
         opcion = input("Ingrese una opcion: ")
@@ -482,6 +482,7 @@ def ruleta():
         print("Hiciste match con: ", nombre_B)
     else:
         print("Hiciste match con: ", nombre_C)
+    sleep(5)
 
 # ##Programa## #
 
@@ -512,6 +513,7 @@ if inicio:
                 menu_opc_matcheos()
             case 4:
                 print("En construccion")
+                sleep(5)
         limpiar_pantalla()
     print("El sistema se cerrara.")
 else:
