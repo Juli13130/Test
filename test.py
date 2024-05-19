@@ -1,8 +1,8 @@
-'''
-estudiante*nombre, estudiante*_email, estudiante*_contrasenia :string
-
-# los * significan diferentes variables similares
-'''
+#Integrantes:
+#Julian
+#Alejo Aguëro
+#Matias Fernandez
+#Kevin Jordan Dorko
 
 # Para ocultar los caracteres
 import getpass
@@ -14,6 +14,12 @@ from time import sleep
 import random
 # Para calcular la edad
 from datetime import datetime
+
+'''
+estudiante*nombre, estudiante*_email, estudiante*_contrasenia :string
+
+# los * significan diferentes variables similares
+'''
 
 # Usuarios y variables
 estudiante1_nombre = "juan 1"
@@ -80,7 +86,7 @@ def login():
 
 
 '''
-estudiante*_fec estudiante*_bio estudiante*_hobbie fec bio hobbie  seleccion_numerica : string
+estudiante*_fec estudiante*_bio estudiante*_hobbie fec bio hobbie  seleccion_numerica hoy : string
 opcion : integer
 '''
 
@@ -232,6 +238,9 @@ def menu_opc_gestion_candidatos():
         menu_print_gestion_candidatos()
         opcion = input("Ingrese una opcion: ")
 
+'''
+correo estudiante*_email estudiante*_nombre estudiante*_fec estudiante*_bio estudiante*_hobbie : string
+'''
 
 def vercandidatos():
     if correo == estudiante1_email:
@@ -321,8 +330,8 @@ def vercandidatos():
 
 
 '''
-fechadenacimiento : string
-hoy, edad : integer
+fechadenacimiento hoy : string
+edad : integer
 '''
 
 
@@ -336,7 +345,7 @@ def calcularedad(fechadenacimiento):
 
 
 '''
-yo_candidato, mgestudiante : string
+yo_candidato, mgestudiante estudiante*_nombre : string
 '''
 
 
@@ -425,7 +434,7 @@ def menu_ruleta():
 
 
 '''
-yo_candidato, nombre_* : string
+yo_candidato, nombre_* estudiante*_nombre : string
 numran, probabilidad_* : integer
 '''
 
@@ -480,6 +489,7 @@ def ruleta():
 '''
 seleccion_numerica : string
 opc_principal : integer
+inicio : boolean
 '''
 
 login()
