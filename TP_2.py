@@ -59,24 +59,25 @@ def login_estudiantes():
     i=0
     email = input("Ingrese mail del estudiante: ")
     contrasenia = getpass.getpass("Ingrese la contrasenia: ")
-    while estudiantes[i][0] != email and i<8:
+    while estudiantes[i][0] != email and i<7:
         i=i+1
     estado = estudiantes[i][2]
+    print(estudiantes[i][0])
     if email == estudiantes[i][0] and contrasenia == estudiantes[i][1] and estado == "ACTIVO":
-        return True
+        return "Estudiante"
     else:
-        return False
+        return "Denegado"
 
 def login_moderadores():
     i=0
     email = input("Ingrese mail del moderador: ")
     contrasenia = getpass.getpass("Ingrese la contrasenia: ")
-    while moderadores[i][0] != email and i<4:
+    while moderadores[i][0] != email and i<3:
         i=i+1
-    if email == moderadores[i][0] and contrasenia == estudiantes[i][1]:
-        return True
+    if email == moderadores[i][0] and contrasenia == moderadores[i][1]:
+        return "Moderador"
     else:
-        return False
+        return "Denegado"
 
 def menu_estudiantes():
     print("Soy estudiante")
@@ -104,6 +105,7 @@ def registrar():
         if opc==1:
             aux=0
             print("Hay ",contador_estudiantes," estudiantes registrados")
+            print("Quedan ",8-contador_estudiantes," lugares disponibles")
             while aux == 0 and contador_estudiantes < 8:
                 email=input("Ingrese email del usuario: ")
                 contrasenia=input("Ingrese contrasenia del usuario: ")
@@ -111,10 +113,11 @@ def registrar():
                 print("1. Activo")
                 print("2. Inactivo")
                 estado=input("Ingrese estado del usuario: ")
+                estado=validar(estado,1,2)
                 if estado==1:
-                    estado="Activo"
+                    estado="ACTIVO"
                 else:
-                    estado="Inactivo"
+                    estado="INACTIVO"
                 estudiantes[contador_estudiantes][0]=email
                 estudiantes[contador_estudiantes][1]=contrasenia
                 estudiantes[contador_estudiantes][2]=estado
@@ -124,12 +127,13 @@ def registrar():
         elif opc==2:
             aux=0
             print("Hay ",contador_moderadores," moderadores registrados")
+            print("Quedan ", 4-contador_moderadores," lugares disponibles")
             while aux == 0 and contador_moderadores < 4:
                 email=input("Ingrese email del moderador: ")
                 contrasenia=input("Ingrese contrasenia del moderador: ")
             
                 moderadores[contador_moderadores][0]=email
-                moderadores[contador_moderadores][0]=contrasenia
+                moderadores[contador_moderadores][1]=contrasenia
                 contador_moderadores=contador_moderadores+1
             
                 aux=input("Ingrese 0 para seguir: ")
@@ -152,15 +156,16 @@ def login():
         tipo_usuario=validar(tipo_usuario,1,2)
         
         if tipo_usuario == 1:
-            login_estudiantes()
+            estado_login=login_estudiantes()
         else:
-            login_moderadores()    
-            
-        if login_estudiantes()==True and tipo_usuario == 1:
-            menu_estudiantes()
-        elif login_moderadores()==False and tipo_usuario ==2:
-            menu_moderadores()
+            estado_login=login_moderadores()    
 
+        if estado_login == "Estudiante":
+            menu_estudiantes()
+        elif estado_login == "Moderador":
+            menu_moderadores()
+        else:
+            print("Acceso denegado")
     else:
         print("No se puede iniciar porque no hay 1 moderador y 4 estudiantes registrados.")
 
