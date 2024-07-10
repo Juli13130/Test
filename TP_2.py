@@ -56,17 +56,23 @@ def check():
     
 # lista[columna][fila]
 def login_estudiantes():
-    i=0
-    email = input("Ingrese mail del estudiante: ")
-    contrasenia = getpass.getpass("Ingrese la contrasenia: ")
-    while estudiantes[i][0] != email and i<7:
-        i=i+1
-    estado = estudiantes[i][2]
-    print(estudiantes[i][0])
-    if email == estudiantes[i][0] and contrasenia == estudiantes[i][1] and estado == "ACTIVO":
-        return "Estudiante"
-    else:
-        return "Denegado"
+    intentos=0
+    acceso="Denegado"
+    while intentos < 3 :
+        i=0
+        email = input("Ingrese mail del estudiante: ")
+        contrasenia = getpass.getpass("Ingrese la contrasenia: ")
+        while estudiantes[i][0] != email and i<7:
+            i=i+1
+        estado = estudiantes[i][2]
+        if email == estudiantes[i][0] and contrasenia == estudiantes[i][1] and estado == "ACTIVO":
+            intentos=4
+            acceso="Estudiante"
+        else:
+            intentos=intentos+1
+            print("Quedan ",3-intentos," intentos")
+    return acceso
+    
 
 def login_moderadores():
     i=0
