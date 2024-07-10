@@ -65,12 +65,14 @@ def login_estudiantes():
         while estudiantes[i][0] != email and i<7:
             i=i+1
         estado = estudiantes[i][2]
-        if email == estudiantes[i][0] and contrasenia == estudiantes[i][1] and estado == "ACTIVO":
+        if email == estudiantes[i][0] and contrasenia == estudiantes[i][1]:
             intentos=4
             acceso="Estudiante"
         else:
             intentos=intentos+1
             print("Quedan ",3-intentos," intentos")
+    if acceso == "Estudiante" and estado != "ACTIVO":
+        acceso="Denegado"
     return acceso
     
 
