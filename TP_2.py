@@ -11,7 +11,6 @@ import random
 from datetime import datetime
 
 def inicializar_arrays(filas,columnas):
-    columnas=columnas+1
     array = [ [0] * columnas for i in range(filas)]
     return array
     
@@ -107,32 +106,6 @@ def menu_principal_estudiantes():
     print("4. Reportes estadisticos")
     print("0. Salir")
 
-def menu_opc_gestion_perfil():
-    limpiar_pantalla()
-    menu_print_gestion_perfil()
-    opcion = input("Ingrese una opcion: ")
-    while opcion != "c":
-        match opcion:
-            case "a":
-                menu_editar_datos_personales()
-            case "b":
-                print("En construccion...")
-        limpiar_pantalla()
-        menu_print_gestion_perfil()
-        opcion = input("Ingrese una opcion: ")
-        
-def menu_print_gestion_candidatos():
-    print("2. Gestionar candidatos")
-    print(" a. Ver candidatos")
-    print(" b. Reportar un candidato")
-    print(" c. Volver")
-    
-def menu_print_gestion_perfil():
-    print("1. Gestionar mi perfil")
-    print(" a. Editar mis datos personales")
-    print(" b. Eliminar mi perfil")
-    print(" c. Volver")
-    
 def menu_editar_datos_personales():
     global pos_estudiante
     # Asigno los datos del estudiante a las variables auxiliares.
@@ -180,18 +153,73 @@ def menu_editar_datos_personales():
     estudiantes[pos_estudiante][5] = bio
     estudiantes[pos_estudiante][6] = hobbie
 
+def menu_print_gestion_perfil():
+    print("1. Gestionar mi perfil")
+    print(" a. Editar mis datos personales")
+    print(" b. Eliminar mi perfil")
+    print(" c. Volver")
 
+def menu_eliminar_perfil():
+    print("Soy el menu de eliminar el perfil")
+
+def menu_opc_gestion_perfil():
+    limpiar_pantalla()
+    menu_print_gestion_perfil()
+    opcion = input("Ingrese una opcion: ")
+    while opcion != "c":
+        match opcion:
+            case "a":
+                menu_editar_datos_personales()
+            case "b":
+                menu_eliminar_perfil()
+            case _:
+                print("Ingrese la opcion correctamente")
+                sleep(5)   
+        limpiar_pantalla()
+        menu_print_gestion_perfil()
+        opcion = input("Ingrese una opcion: ")
+        
 def menu_print_gestion_candidatos():
     print("2. Gestionar candidatos")
     print(" a. Ver candidatos")
     print(" b. Reportar un candidato")
     print(" c. Volver")
 
+def menu_ver_candidatos():
+    
+    global pos_estudiante
+    yo_candidato = estudiantes[pos_estudiante][4]
+    limpiar_pantalla()
+    i=0
+    print("Datos de candidatos: ")
+    while i<7:
+        if i != pos_estudiante:
+            print("--------------------------------------")
+            print("Nombre: ",estudiantes[i][3])
+            print("Fecha de nacimiento ",estudiantes[i][4])
+            print("Edad: ",calcularedad(estudiantes[i][4]))
+            print("Bio: ",estudiantes[i][5])
+            print("Hobbie: ",estudiantes[i][6])
+            print("Posicion del estudiante: ",i)
+            print("--------------------------------------")
+        i=i+1
+    #mgestudiante = input("Ingrese la posicion del estudiante que le gusta: ")
+    #mgestudiante = validar(mgestudiante,0,7)
+    
+    #while mgestudiante != estudiante1_nombre and mgestudiante != estudiante2_nombre and mgestudiante != estudiante3_nombre and mgestudiante != estudiante4_nombre or mgestudiante == yo_candidato:
+     #   print("Ingreso el nombre de forma incorrecta o se elijio a usted mismo.")
+      #  sleep(5)
+       # limpiar_pantalla()
+        #vercandidatos()
+        #mgestudiante = input("Ingrese el nombre del estudiante que le gusta: ")
+
+
+def menu_reportar_candidato():
+    print("Soy el menu de reportar al candidato.")
 
 '''
 opcion : integer
 '''
-
 
 def menu_opc_gestion_candidatos():
     limpiar_pantalla()
@@ -200,9 +228,11 @@ def menu_opc_gestion_candidatos():
     while opcion != "c":
         match opcion:
             case "a":
-                menuvercandidatos()
+                menu_ver_candidatos()
+            case "b":
+                menu_reportar_candidato()
             case _:
-                print("En construccion...")
+                print("Ingrese la opcion correctamente")
                 sleep(5)
         limpiar_pantalla()
         menu_print_gestion_candidatos()
@@ -215,114 +245,17 @@ def menu_opc_matcheos():
     while opcion != "c":
         match opcion:
             case "a":
-                print("Menu ver candidatos")
+                print("En construccion...")
             case "b":
                 print("En construccion...")
-            case "x":
-                menu_ruleta()
+            #case "x":
+                #menu_ruleta()
             case _:
                 print("Ingrese una opcion correctamente.")
         sleep(5)
         limpiar_pantalla()
         menu_print_matcheos()
         opcion = input("Ingrese una opcion: ")
-
-def ruleta_instrucciones():
-    print("La Ruleta de afinidad es una forma de seleccionar tu matcheo")
-    print("usando tu afinidad con tres personas!")
-    print("Puedes elegir ser matcheado automaticamente o solo mostrar el nombre")
-    print("(necesitaras el nombre exacto para hacerlo automaticamente asi que seria buena idea ir a [Gestion de candidatos])")
-    print(" 1. Ruleta")
-    print(" 0. Salir")
-
-
-'''
-seleccion_numerica : string
-opcion_ruleta : integer
-'''
-
-
-def menu_ruleta():
-    opcion_ruleta = 1
-    while opcion_ruleta != 0:
-        limpiar_pantalla()
-        ruleta_instrucciones()
-        seleccion_numerica = input("Ingrese su opcion: ")
-        while not seleccion_numerica.isnumeric() or int(seleccion_numerica) > 1 or int(seleccion_numerica) < 0:
-            print("Ingreso incorrectamente.")
-            sleep(5)
-            seleccion_numerica = input("Ingrese su opcion: ")
-        opcion_ruleta = int(seleccion_numerica)
-        match opcion_ruleta:
-            case 1:
-                ruleta()
-
-
-'''
-yo_candidato, nombre_* estudiante*_nombre : string
-numran, probabilidad_* : integer
-'''
-
-
-def ruleta():
-    global pos_estudiante
-    limpiar_pantalla()
-    numran = random.randint(0, 100)
-    yo_candidato = estudiantes[pos_estudiante][4]
-    i=0
-    print("Los candidatos a elegir son los siguientes: ")
-    while i<7:
-        if i != pos_estudiante:
-            print("Candidato: ",estudiantes[i][4], "posicion ",i)
-        i=i+1
-    
-    a=input("Ingrese la posicion del candidato 1: ")
-    a=validar(a,0,7)
-    while estudiantes[pos_estudiante][4] == estudiantes[a][4]:
-        print("No te podes elegir a vos mismo..")
-        a=input("Ingrese la posicion del candidato 1: ")
-        a=validar(a,0,7)
-    
-    b=input("Ingrese la posicion del candidato 2: ")
-    b=validar(b,0,7)
-    while estudiantes[pos_estudiante][4] == estudiantes[b][4] or estudiantes[b][4]==estudiantes[a][4]:
-        print("No te podes elegir a vos mismo o elegir un candidato ya elegido..")
-        b=input("Ingrese la posicion del candidato 2: ")
-        b=validar(b,0,7)
-    c=input("Ingrese la posicion del candidato 3: ")
-    c=validar(c,0,7)
-    while estudiantes[pos_estudiante][4] == estudiantes[b][4] or estudiantes[c][4]==estudiantes[a][4] or estudiantes[c][4]==estudiantes[b][4]:
-        print("No te podes elegir a vos mismo o elegir un candidato ya elegido..")
-        b=input("Ingrese la posicion del candidato 3: ")
-        c=validar(c,0,7)
-    
-    nombre_A=estudiantes[a][4]
-    nombre_B=estudiantes[b][4]
-    nombre_C=estudiantes[c][4]
-
-
-    print("Ahora asignamos nuestra afinidad con ellos")
-    print("Solo tienes 100 puntos de afinidad para distribuir")
-    probabilidad_A = int(input("Afinidad con " + nombre_A + ": "))
-    probabilidad_B = int(input("Afinidad con " + nombre_B + ": "))
-    probabilidad_C = int(input("Afinidad con " + nombre_C + ": "))
-    while probabilidad_A + probabilidad_B + probabilidad_C != 100:
-        print("La afinidad no puede ser mayor a 100")
-        print(probabilidad_A + probabilidad_B + probabilidad_C, "?")
-        probabilidad_A = int(input("Afinidad con " + nombre_A + ": "))
-        probabilidad_B = int(input("Afinidad con " + nombre_B + ": "))
-        probabilidad_C = int(input("Afinidad con " + nombre_C + ": "))
-
-    print(f"Se tiro un dado de {numran} , {probabilidad_C} es el sobrante")
-    sleep(2)
-    limpiar_pantalla()
-    if numran < probabilidad_A:
-        print("Hiciste match con: ", nombre_A)
-    elif numran >= probabilidad_A and numran < probabilidad_B + probabilidad_A:
-        print("Hiciste match con: ", nombre_B)
-    else:
-        print("Hiciste match con: ", nombre_C)
-    sleep(5)
 
 def menu_opc_reportes():
     print("Soy el menu de reportes")
@@ -346,8 +279,8 @@ def menu_estudiantes():
                 menu_opc_matcheos()
             case 4:
                 menu_opc_reportes()
-                sleep(5)
         limpiar_pantalla()
+        sleep(5)
     
 def menu_principal_moderadores():
     print("1. Gestionar usuarios")
@@ -446,7 +379,7 @@ def menu_print_matcheos():
     print(" a. Ver matcheos")
     print(" b. Eliminar un matcheo")
     print(" c. Volver")
-    print(" x. Ruleta de afinidad")
+    #print(" x. Ruleta de afinidad")
   
 def calcularedad(fechadenacimiento):
     if fechadenacimiento != 0:
@@ -459,33 +392,14 @@ def calcularedad(fechadenacimiento):
         edad=0    
     return edad
 
-def menuvercandidatos():
-    
-    global pos_estudiante
-    yo_candidato = estudiantes[pos_estudiante][4]
-    limpiar_pantalla()
+def inicializar_likes(array):
     i=0
-    print("Datos de candidatos: ")
-    while i<7:
-        if i != pos_estudiante:
-            print("--------------------------------------")
-            print("Nombre: ",estudiantes[i][3])
-            print("Fecha de nacimiento ",estudiantes[i][4])
-            print("Edad: ",calcularedad(estudiantes[i][4]))
-            print("Bio: ",estudiantes[i][5])
-            print("Hobbie: ",estudiantes[i][6])
-            print("Posicion del estudiante: ",i)
-            print("--------------------------------------")
-        i=i+1
-    mgestudiante = input("Ingrese la posicion del estudiante que le gusta: ")
-    mgestudiante = validar(mgestudiante,0,7)
-    
-    #while mgestudiante != estudiante1_nombre and mgestudiante != estudiante2_nombre and mgestudiante != estudiante3_nombre and mgestudiante != estudiante4_nombre or mgestudiante == yo_candidato:
-     #   print("Ingreso el nombre de forma incorrecta o se elijio a usted mismo.")
-      #  sleep(5)
-       # limpiar_pantalla()
-        #vercandidatos()
-        #mgestudiante = input("Ingrese el nombre del estudiante que le gusta: ")
+    for i in range (8):
+        j=0
+        for j in range (8):
+            array[i][j]=numran = random.randint(0,1)
+    sleep(1)
+
 
 def login():
     if check() == True:
@@ -510,8 +424,6 @@ def login():
         sleep(5)
         limpiar_pantalla()
 
-      
-
 
 #   0. Salir
 #   1. Login
@@ -519,6 +431,9 @@ def login():
 
 estudiantes=inicializar_arrays(8,6)
 moderadores=inicializar_arrays(4,2)
+estudiantes_likes=inicializar_arrays(8,8)
+estudiantes_likes=inicializar_likes(estudiantes_likes)
+
 
 print_menu_inicio()
 opc=input("Ingrese opcion: ")
@@ -537,4 +452,101 @@ while opc != 0:
     opc=validar(opc,0,2) 
 
 
+#Modulos anteriores sin usar
+    
+# def ruleta_instrucciones():
+#     print("La Ruleta de afinidad es una forma de seleccionar tu matcheo")
+#     print("usando tu afinidad con tres personas!")
+#     print("Puedes elegir ser matcheado automaticamente o solo mostrar el nombre")
+#     print("(necesitaras el nombre exacto para hacerlo automaticamente asi que seria buena idea ir a [Gestion de candidatos])")
+#     print(" 1. Ruleta")
+#     print(" 0. Salir")
 
+
+'''
+seleccion_numerica : string
+opcion_ruleta : integer
+'''
+
+
+# def menu_ruleta():
+#     opcion_ruleta = 1
+#     while opcion_ruleta != 0:
+#         limpiar_pantalla()
+#         ruleta_instrucciones()
+#         seleccion_numerica = input("Ingrese su opcion: ")
+#         while not seleccion_numerica.isnumeric() or int(seleccion_numerica) > 1 or int(seleccion_numerica) < 0:
+#             print("Ingreso incorrectamente.")
+#             sleep(5)
+#             seleccion_numerica = input("Ingrese su opcion: ")
+#         opcion_ruleta = int(seleccion_numerica)
+#         match opcion_ruleta:
+#             case 1:
+#                 ruleta()
+
+
+'''
+yo_candidato, nombre_* estudiante*_nombre : string
+numran, probabilidad_* : integer
+'''
+
+
+# def ruleta():
+#     global pos_estudiante
+#     limpiar_pantalla()
+#     numran = random.randint(0, 100)
+#     yo_candidato = estudiantes[pos_estudiante][4]
+#     i=0
+#     print("Los candidatos a elegir son los siguientes: ")
+#     while i<7:
+#         if i != pos_estudiante:
+#             print("Candidato: ",estudiantes[i][4], "posicion ",i)
+#         i=i+1
+    
+#     a=input("Ingrese la posicion del candidato 1: ")
+#     a=validar(a,0,7)
+#     while estudiantes[pos_estudiante][4] == estudiantes[a][4]:
+#         print("No te podes elegir a vos mismo..")
+#         a=input("Ingrese la posicion del candidato 1: ")
+#         a=validar(a,0,7)
+    
+#     b=input("Ingrese la posicion del candidato 2: ")
+#     b=validar(b,0,7)
+#     while estudiantes[pos_estudiante][4] == estudiantes[b][4] or estudiantes[b][4]==estudiantes[a][4]:
+#         print("No te podes elegir a vos mismo o elegir un candidato ya elegido..")
+#         b=input("Ingrese la posicion del candidato 2: ")
+#         b=validar(b,0,7)
+#     c=input("Ingrese la posicion del candidato 3: ")
+#     c=validar(c,0,7)
+#     while estudiantes[pos_estudiante][4] == estudiantes[b][4] or estudiantes[c][4]==estudiantes[a][4] or estudiantes[c][4]==estudiantes[b][4]:
+#         print("No te podes elegir a vos mismo o elegir un candidato ya elegido..")
+#         b=input("Ingrese la posicion del candidato 3: ")
+#         c=validar(c,0,7)
+    
+#     nombre_A=estudiantes[a][4]
+#     nombre_B=estudiantes[b][4]
+#     nombre_C=estudiantes[c][4]
+
+
+#     print("Ahora asignamos nuestra afinidad con ellos")
+#     print("Solo tienes 100 puntos de afinidad para distribuir")
+#     probabilidad_A = int(input("Afinidad con " + nombre_A + ": "))
+#     probabilidad_B = int(input("Afinidad con " + nombre_B + ": "))
+#     probabilidad_C = int(input("Afinidad con " + nombre_C + ": "))
+#     while probabilidad_A + probabilidad_B + probabilidad_C != 100:
+#         print("La afinidad no puede ser mayor a 100")
+#         print(probabilidad_A + probabilidad_B + probabilidad_C, "?")
+#         probabilidad_A = int(input("Afinidad con " + nombre_A + ": "))
+#         probabilidad_B = int(input("Afinidad con " + nombre_B + ": "))
+#         probabilidad_C = int(input("Afinidad con " + nombre_C + ": "))
+
+#     print(f"Se tiro un dado de {numran} , {probabilidad_C} es el sobrante")
+#     sleep(2)
+#     limpiar_pantalla()
+#     if numran < probabilidad_A:
+#         print("Hiciste match con: ", nombre_A)
+#     elif numran >= probabilidad_A and numran < probabilidad_B + probabilidad_A:
+#         print("Hiciste match con: ", nombre_B)
+#     else:
+#         print("Hiciste match con: ", nombre_C)
+#     sleep(5)    
