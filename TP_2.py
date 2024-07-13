@@ -12,6 +12,9 @@ from datetime import datetime
 
 def inicializar_arrays(filas,columnas):
     array = [ [0] * columnas for i in range(filas)]
+    i=0
+    for i in range (filas):
+        array[i][0]=i
     return array
     
 #c = 4
@@ -32,7 +35,7 @@ def validar(var,min,max):
     var=int(var)
     while var<min or var >max:
         print("Opcion incorrecta.")
-        var=input("Ingrese la opcion correctamente: ")
+        var=int(input("Ingrese la opcion correctamente: "))
     return var
     
 def print_tipos_usuarios():
@@ -45,10 +48,10 @@ def check():
     contador_estudiantes=0
     contador_moderadores=0
     for i in range(8):
-        if estudiantes[i][0] != 0:
+        if estudiantes[i][1] != 0:
             contador_estudiantes=contador_estudiantes+1
     for i in range(4):
-        if moderadores[i][0] != 0:
+        if moderadores[i][1] != 0:
             contador_moderadores=contador_moderadores+1
     if contador_estudiantes >= 4 and contador_moderadores >= 1:
         return True
@@ -64,10 +67,10 @@ def login_estudiantes():
         i=0
         email = input("Ingrese mail del estudiante: ")
         contrasenia = getpass.getpass("Ingrese la contrasenia: ")
-        while estudiantes[i][0] != email and i<7:
+        while estudiantes[i][1] != email and i<7:
             i=i+1
-        estado = estudiantes[i][2]
-        if email == estudiantes[i][0] and contrasenia == estudiantes[i][1]:
+        estado = estudiantes[i][3]
+        if email == estudiantes[i][1] and contrasenia == estudiantes[i][2]:
             intentos=4
             acceso="Estudiante"
             pos_estudiante=i
@@ -88,9 +91,9 @@ def login_moderadores():
         i=0
         email = input("Ingrese mail del moderador: ")
         contrasenia = getpass.getpass("Ingrese la contrasenia: ")
-        while moderadores[i][0] != email and i<3:
+        while moderadores[i][1] != email and i<3:
             i=i+1
-        if email == moderadores[i][0] and contrasenia == moderadores[i][1]:
+        if email == moderadores[i][1] and contrasenia == moderadores[i][2]:
             intentos=4
             pos_moderador=i
             acceso="Moderador"
@@ -109,9 +112,9 @@ def menu_principal_estudiantes():
 def menu_editar_datos_personales():
     global pos_estudiante
     # Asigno los datos del estudiante a las variables auxiliares.
-    fec = estudiantes[pos_estudiante][4]
-    bio = estudiantes[pos_estudiante][5]
-    hobbie = estudiantes[pos_estudiante][6]
+    fec = estudiantes[pos_estudiante][5]
+    bio = estudiantes[pos_estudiante][6]
+    hobbie = estudiantes[pos_estudiante][7]
     opcion = 0
     while opcion != 4:
         print("Sus datos actuales son: ")
@@ -149,9 +152,9 @@ def menu_editar_datos_personales():
             case 3:
                 hobbie = input("Ingrese el nuevo hobbie: ")
     # Asigno el valor de las variables auxiliares al estudiante
-    estudiantes[pos_estudiante][4] = fec
-    estudiantes[pos_estudiante][5] = bio
-    estudiantes[pos_estudiante][6] = hobbie
+    estudiantes[pos_estudiante][5] = fec
+    estudiantes[pos_estudiante][6] = bio
+    estudiantes[pos_estudiante][7] = hobbie
 
 def menu_print_gestion_perfil():
     print("1. Gestionar mi perfil")
@@ -160,24 +163,43 @@ def menu_print_gestion_perfil():
     print(" c. Volver")
 
 def menu_eliminar_perfil():
-    print("Soy el menu de eliminar el perfil")
+    global pos_estudiante
+    limpiar_pantalla()
+    print("Confirmar eliminacion de perfil")
+    print("0. Si")
+    print("1. No")
+    opc=input("Ingrese una opcion: ")
+    opc=validar(opc,0,1)
+    match opc:
+        case 0:
+            estudiantes[pos_estudiante][3]="INACTIVO"
+        case 1:
+            print("")
+        case _:
+            print("Ingrese una opcion correctamente")
+            
+        
 
 def menu_opc_gestion_perfil():
     limpiar_pantalla()
     menu_print_gestion_perfil()
     opcion = input("Ingrese una opcion: ")
     while opcion != "c":
-        match opcion:
-            case "a":
-                menu_editar_datos_personales()
-            case "b":
-                menu_eliminar_perfil()
-            case _:
-                print("Ingrese la opcion correctamente")
-                sleep(5)   
-        limpiar_pantalla()
-        menu_print_gestion_perfil()
-        opcion = input("Ingrese una opcion: ")
+        while estudiantes[pos_estudiante][3]=="ACTIVO":
+            match opcion:
+                case "a":
+                    menu_editar_datos_personales()
+                case "b":
+                    menu_eliminar_perfil()
+                case _:
+                    print("Ingrese la opcion correctamente")
+                    sleep(5)   
+            limpiar_pantalla()
+            if estudiantes[pos_estudiante][3]=="ACTIVO":
+                menu_print_gestion_perfil()
+                opcion = input("Ingrese una opcion: ")
+            else:
+                opcion="c"
         
 def menu_print_gestion_candidatos():
     print("2. Gestionar candidatos")
@@ -195,12 +217,12 @@ def menu_ver_candidatos():
     while i<7:
         if i != pos_estudiante:
             print("--------------------------------------")
-            print("Nombre: ",estudiantes[i][3])
-            print("Fecha de nacimiento ",estudiantes[i][4])
-            print("Edad: ",calcularedad(estudiantes[i][4]))
-            print("Bio: ",estudiantes[i][5])
-            print("Hobbie: ",estudiantes[i][6])
-            print("Posicion del estudiante: ",i)
+            print("Nombre: ",estudiantes[i][4])
+            print("Fecha de nacimiento ",estudiantes[i][5])
+            print("Edad: ",calcularedad(estudiantes[i][5]))
+            print("Bio: ",estudiantes[i][6])
+            print("Hobbie: ",estudiantes[i][7])
+            print("ID del estudiante: ",i)
             print("--------------------------------------")
         i=i+1
     #mgestudiante = input("Ingrese la posicion del estudiante que le gusta: ")
@@ -262,7 +284,7 @@ def menu_opc_reportes():
 
 def menu_estudiantes():
     opc_principal = 5
-    while opc_principal != 0:
+    while opc_principal != 0 and estudiantes[pos_estudiante][3]=="ACTIVO":
         limpiar_pantalla()
         menu_principal_estudiantes()
         seleccion_numerica = input("Ingrese su seleccion: ")
@@ -325,10 +347,10 @@ def registrar():
         contador_estudiantes=0
         contador_moderadores=0
         for i in range(8):
-            if estudiantes[i][0] != 0:
+            if estudiantes[i][1] != 0:
                 contador_estudiantes=contador_estudiantes+1
         for i in range(4):
-            if moderadores[i][0] != 0:
+            if moderadores[i][1] != 0:
                 contador_moderadores=contador_moderadores+1
         if opc==1:
             aux=0
@@ -346,9 +368,9 @@ def registrar():
                     estado="ACTIVO"
                 else:
                     estado="INACTIVO"
-                estudiantes[contador_estudiantes][0]=email
-                estudiantes[contador_estudiantes][1]=contrasenia
-                estudiantes[contador_estudiantes][2]=estado
+                estudiantes[contador_estudiantes][1]=email
+                estudiantes[contador_estudiantes][2]=contrasenia
+                estudiantes[contador_estudiantes][3]=estado
                 contador_estudiantes=contador_estudiantes+1
                 aux=input("Ingrese 0 para seguir: ")
                 aux=int(aux)
@@ -360,8 +382,8 @@ def registrar():
                 email=input("Ingrese email del moderador: ")
                 contrasenia=input("Ingrese contrasenia del moderador: ")
             
-                moderadores[contador_moderadores][0]=email
-                moderadores[contador_moderadores][1]=contrasenia
+                moderadores[contador_moderadores][1]=email
+                moderadores[contador_moderadores][2]=contrasenia
                 contador_moderadores=contador_moderadores+1
             
                 aux=input("Ingrese 0 para seguir: ")
@@ -398,7 +420,6 @@ def inicializar_likes(array):
         j=0
         for j in range (8):
             array[i][j]=numran = random.randint(0,1)
-    sleep(1)
 
 
 def login():
@@ -429,8 +450,8 @@ def login():
 #   1. Login
 #   2. Registrarse
 
-estudiantes=inicializar_arrays(8,6)
-moderadores=inicializar_arrays(4,2)
+estudiantes=inicializar_arrays(8,8)
+moderadores=inicializar_arrays(4,3)
 estudiantes_likes=inicializar_arrays(8,8)
 estudiantes_likes=inicializar_likes(estudiantes_likes)
 
