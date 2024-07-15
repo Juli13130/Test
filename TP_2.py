@@ -122,7 +122,7 @@ def menu_editar_datos_personales():
         print("Su biografia es: ", bio)
         print("Su hobbie es: ", hobbie)
         print("Que dato desea cambiar?")
-        print("1. Fecha de naciemiento")
+        print("1. Fecha de nacimiento")
         print("2. Biografia")
         print("3. Hobbie")
         print("4. Salir")
@@ -225,9 +225,34 @@ def menu_ver_candidatos():
             print("ID del estudiante: ",i)
             print("--------------------------------------")
         i=i+1
-    #mgestudiante = input("Ingrese la posicion del estudiante que le gusta: ")
-    #mgestudiante = validar(mgestudiante,0,7)
-    
+    mgestudiante = input("Ingrese el nombre del estudiante que le gusta: ")
+    i=0
+    mgestudiante_pos=0
+    while mgestudiante != estudiantes[mgestudiante_pos][4]:
+        while i < 7:
+            if estudiantes[i][4] == mgestudiante:
+                mgestudiante_pos=i
+                i=7
+            else:
+                i=i+1
+        if i >= 7 and mgestudiante != estudiantes[mgestudiante_pos][4]:
+            print("No se encontro al estudiante.")
+            print("Verifique que lo escribio correctamente.")
+            sleep(2)
+            mgestudiante = input("Ingrese el nombre del estudiante que le gusta: ")
+            i=0
+            
+            
+    if estudiantes[mgestudiante_pos][4] == yo_candidato:
+            print("No se puede elegir a usted mismo.")
+            sleep(5)
+            limpiar_pantalla()        
+    else:
+        print("Se dio like al estudiante: ",estudiantes[mgestudiante_pos][4])
+        estudiantes_likes[pos_estudiante][mgestudiante_pos]=1
+        sleep(5)
+        limpiar_pantalla()
+        
     #while mgestudiante != estudiante1_nombre and mgestudiante != estudiante2_nombre and mgestudiante != estudiante3_nombre and mgestudiante != estudiante4_nombre or mgestudiante == yo_candidato:
      #   print("Ingreso el nombre de forma incorrecta o se elijio a usted mismo.")
       #  sleep(5)
@@ -368,9 +393,12 @@ def registrar():
                     estado="ACTIVO"
                 else:
                     estado="INACTIVO"
+                nombre=input("Ingrese nombre del usuario: ")
+                
                 estudiantes[contador_estudiantes][1]=email
                 estudiantes[contador_estudiantes][2]=contrasenia
                 estudiantes[contador_estudiantes][3]=estado
+                estudiantes[contador_estudiantes][4]=nombre
                 contador_estudiantes=contador_estudiantes+1
                 aux=input("Ingrese 0 para seguir: ")
                 aux=int(aux)
@@ -387,6 +415,7 @@ def registrar():
                 contador_moderadores=contador_moderadores+1
             
                 aux=input("Ingrese 0 para seguir: ")
+                aux=int(aux)
         limpiar_pantalla()
         print("Menu de registro")
         print("0. Salir")
@@ -420,6 +449,7 @@ def inicializar_likes(array):
         j=0
         for j in range (8):
             array[i][j]=numran = random.randint(0,1)
+    return array
 
 
 def login():
