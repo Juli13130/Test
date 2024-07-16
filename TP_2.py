@@ -9,6 +9,7 @@ from time import sleep
 import random
 # Para calcular la edad
 from datetime import datetime
+from turtle import pos
 
 def inicializar_arrays(filas,columnas):
     array = [ [0] * columnas for i in range(filas)]
@@ -215,7 +216,7 @@ def menu_ver_candidatos():
     i=0
     print("Datos de candidatos: ")
     while i<7:
-        if i != pos_estudiante:
+        if i != pos_estudiante and estudiantes[i][3]=="ACTIVO":
             print("--------------------------------------")
             print("Nombre: ",estudiantes[i][4])
             print("Fecha de nacimiento ",estudiantes[i][5])
@@ -262,6 +263,62 @@ def menu_ver_candidatos():
 
 
 def menu_reportar_candidato():
+    i=0
+    reportante=estudiantes[pos_estudiante][4]
+    print("Usuarios y ID: ")
+    while i<7:
+        if i != pos_estudiante and estudiantes[i][3]=="ACTIVO":
+            print("--------------------------------------")
+            print("Nombre: ",estudiantes[i][4])
+            print("ID del estudiante: ",i)
+            print("--------------------------------------")
+        i=i+1
+    print("Reportar por: ")
+    print("0. ID")
+    print("1. Usuario")
+    opc=int(input("Ingrese opcion: "))
+    opc=validar(opc,0,1)
+    if opc == 0:
+        reportado=int(input("Ingrese ID del usuario a reportar: "))
+        reportado=validar(reportado,0,7)
+        while reportado == pos_estudiante:
+            print("No se puede reportar a usted mismo")
+            reportado=int(input("Ingrese ID del usuario a reportar"))
+            validar(reportado,0,7)
+    else:
+        while reportado == estudiantes[pos_estudiante][4]:
+            print("No se puede reportar a usted mismo.")
+            reportado=input("Ingrese nombre del usuario a reportar")  
+        i=0
+        while reportado != estudiantes[i][4] and i < 7:
+            while reportado != estudiantes[i][4]:
+                while i < 7:
+                    if estudiantes[i][4] == reportado:
+                        i=7
+                    else:
+                        i=i+1
+                if estudiantes[i][4] != reportado:
+                    print("No se encontro el nombre.")
+                    reportado=input("Ingrese nombre del usuario a reportar")
+                    i=0
+    pos_reportado=i
+    print("Armado de reporte: ")
+    motivo=input("Ingrese motivo del reporte: ")
+    estado=0
+    
+    contador_reportes=0
+    for i in range(8):
+        if reportes[i][1] != 0:
+            contador_reportes=contador_reportes
+    reportes[contador_reportes][1]=estudiantes[pos_estudiante][4]
+    reportes[contador_reportes][2]=estudiantes[pos_reportado][4]
+    reportes[contador_reportes][3]=motivo
+    reportes[contador_reportes][4]=estado
+        
+             
+            
+    
+
     print("Soy el menu de reportar al candidato.")
 
 '''
@@ -482,6 +539,7 @@ def login():
 
 estudiantes=inicializar_arrays(8,8)
 moderadores=inicializar_arrays(4,3)
+reportes=inicializar_arrays(64,4)
 estudiantes_likes=inicializar_arrays(8,8)
 estudiantes_likes=inicializar_likes(estudiantes_likes)
 
