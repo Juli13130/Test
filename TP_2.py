@@ -14,6 +14,7 @@ from turtle import pos
 def inicializar_arrays(filas,columnas):
     array = [ [0] * columnas for i in range(filas)]
     i=0
+    #Columna ID
     for i in range (filas):
         array[i][0]=i
     return array
@@ -81,8 +82,7 @@ def login_estudiantes():
     if acceso == "Estudiante" and estado != "ACTIVO":
         acceso="Denegado"
         print("Su cuenta se encuentra INACTIVA")
-    return acceso
-    
+    return acceso    
 
 def login_moderadores():
     global pos_moderador
@@ -177,9 +177,7 @@ def menu_eliminar_perfil():
         case 1:
             print("")
         case _:
-            print("Ingrese una opcion correctamente")
-            
-        
+            print("Ingrese una opcion correctamente")      
 
 def menu_opc_gestion_perfil():
     limpiar_pantalla()
@@ -261,6 +259,12 @@ def menu_ver_candidatos():
         #vercandidatos()
         #mgestudiante = input("Ingrese el nombre del estudiante que le gusta: ")
 
+def contador_reportes():
+    contador_reportes=0
+    for i in range(56):
+        if reportes[i][3] != 0:
+            contador_reportes=contador_reportes+1
+    return contador_reportes
 
 def menu_reportar_candidato():
     pos_reportado=0
@@ -310,14 +314,11 @@ def menu_reportar_candidato():
     print("Armado de reporte: ")
     motivo=input("Ingrese motivo del reporte: ")
     estado=0
-    contador_reportes=0
-    for i in range(8):
-        if reportes[i][1] != 0:
-            contador_reportes=contador_reportes
-    reportes[contador_reportes][1]=estudiantes[pos_estudiante][0]
-    reportes[contador_reportes][2]=estudiantes[pos_reportado][0]
-    reportes[contador_reportes][3]=motivo
-    reportes[contador_reportes][4]=estado
+    id_reporte=contador_reportes()
+    reportes[id_reporte][1]=estudiantes[pos_estudiante][0]
+    reportes[id_reporte][2]=estudiantes[pos_reportado][0]
+    reportes[id_reporte][3]=motivo
+    reportes[id_reporte][4]=estado
 
 '''
 opcion : integer
@@ -360,7 +361,39 @@ def menu_opc_matcheos():
         opcion = input("Ingrese una opcion: ")
 
 def menu_opc_reportes():
-    print("Soy el menu de reportes")
+    
+    global pos_estudiante
+    
+    col=0
+    contador_match=0
+    contador_likes_dados=0
+    contador_likes_recibidos=0
+    
+    while col <= 7:
+        if col != pos_estudiante:
+            if estudiantes_likes[col][pos_estudiante] == 1:
+                if estudiantes_likes[col][pos_estudiante] == estudiantes_likes[pos_estudiante][col]:
+                    contador_match = contador_match+1
+                else:
+                    #contador_likes_dados=contador_likes_dados+1
+                    contador_likes_recibidos=contador_likes_recibidos+1
+            else:
+                if estudiantes_likes[col][pos_estudiante] != estudiantes_likes[pos_estudiante][col]:
+                    #contador_likes_recibidos=contador_likes_recibidos+1
+                    contador_likes_dados=contador_likes_dados+1
+        col=col+1
+    
+    #Parece que contador_likes_dados
+    #Y contador_likes_recibidos estan al reves
+    #No estoy entendiendo como funcionan los arreglos?    
+
+    print("Matcheados sobre el % posible: ", ((contador_match/7)*100), "%")
+    print("Likes dados y no recibidos: ", contador_likes_dados)
+    print("Likes recibidos y no respondidos: ",contador_likes_recibidos)
+    sleep(5)
+    limpiar_pantalla()
+
+    
 
 def menu_estudiantes():
     opc_principal = 5
@@ -415,6 +448,19 @@ def menu_moderadores():
                 sleep(5)
         limpiar_pantalla()
 
+def contador_estudiante():
+    contador_estudiantes=0
+    for i in range(8):  
+        if estudiantes[i][1] != 0:  
+             contador_estudiantes=contador_estudiantes+1
+    return contador_estudiante
+    
+def contador_moderador():
+    contador_moderadores=0
+    for i in range(4):
+        if moderadores[i][1] != 0:
+            contador_moderadores=contador_moderadores+1
+
 def registrar():
     print("Menu de registro")
     print("0. Salir")
@@ -424,14 +470,8 @@ def registrar():
     opc=validar(opc,0,2)
     while opc != 0:
         i=0
-        contador_estudiantes=0
-        contador_moderadores=0
-        for i in range(8):
-            if estudiantes[i][1] != 0:
-                contador_estudiantes=contador_estudiantes+1
-        for i in range(4):
-            if moderadores[i][1] != 0:
-                contador_moderadores=contador_moderadores+1
+        contador_estudiantes=contador_estudiante()
+        contador_moderadores=contador_moderador()
         if opc==1:
             aux=0
             print("Hay ",contador_estudiantes," estudiantes registrados")
@@ -506,7 +546,6 @@ def inicializar_likes(array):
             array[i][j]=numran = random.randint(0,1)
     return array
 
-
 def login():
     if check() == True:
         
@@ -531,6 +570,10 @@ def login():
         limpiar_pantalla()
 
 def testing():
+    print("Usuarios de testing activados")
+    sleep(5)
+    limpiar_pantalla()
+    
     estudiantes[0][1]="estudiante1"
     estudiantes[0][2]="estudiante1"
     estudiantes[0][3]="ACTIVO"
@@ -572,7 +615,7 @@ def testing():
 
 estudiantes=inicializar_arrays(8,8)
 moderadores=inicializar_arrays(4,3)
-reportes=inicializar_arrays(64,5)
+reportes=inicializar_arrays(56,5)
 estudiantes_likes=inicializar_arrays(8,8)
 estudiantes_likes=inicializar_likes(estudiantes_likes)
 
