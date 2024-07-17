@@ -263,6 +263,7 @@ def menu_ver_candidatos():
 
 
 def menu_reportar_candidato():
+    pos_reportado=0
     i=0
     reportante=estudiantes[pos_estudiante][4]
     print("Usuarios y ID: ")
@@ -283,43 +284,40 @@ def menu_reportar_candidato():
         reportado=validar(reportado,0,7)
         while reportado == pos_estudiante:
             print("No se puede reportar a usted mismo")
-            reportado=int(input("Ingrese ID del usuario a reportar"))
-            validar(reportado,0,7)
+            reportado=int(input("Ingrese ID del usuario a reportar: "))
+            reportado=validar(reportado,0,7)
+        pos_reportado=reportado
     else:
-        while reportado == estudiantes[pos_estudiante][4]:
-            print("No se puede reportar a usted mismo.")
-            reportado=input("Ingrese nombre del usuario a reportar")  
+
+        reportado=input("Ingrese nombre del usuario a reportar: ")
         i=0
-        while reportado != estudiantes[i][4] and i < 7:
-            while reportado != estudiantes[i][4]:
-                while i < 7:
-                    if estudiantes[i][4] == reportado:
-                        i=7
-                    else:
-                        i=i+1
-                if estudiantes[i][4] != reportado:
-                    print("No se encontro el nombre.")
-                    reportado=input("Ingrese nombre del usuario a reportar")
-                    i=0
-    pos_reportado=i
+        pos_reportado=0
+        
+        while reportado == estudiantes[pos_estudiante][4]:
+            print("No se puede elegir a usted mismo.")
+            reportado=input("Ingrese nombre del usuario a reportar: ")
+        while reportado != estudiantes[pos_reportado][4]:
+            while i<7:
+                if estudiantes[i][4] == reportado:
+                    pos_reportado=i
+                    i=7
+                else:
+                    i=i+1
+            if i >= 7 and reportado != estudiantes[pos_reportado][4]:
+                print("No se encontro el nombre.")
+                reportado=input("Ingrese nombre del usuario a reportar: ")
+                i=0
     print("Armado de reporte: ")
     motivo=input("Ingrese motivo del reporte: ")
     estado=0
-    
     contador_reportes=0
     for i in range(8):
         if reportes[i][1] != 0:
             contador_reportes=contador_reportes
-    reportes[contador_reportes][1]=estudiantes[pos_estudiante][4]
-    reportes[contador_reportes][2]=estudiantes[pos_reportado][4]
+    reportes[contador_reportes][1]=estudiantes[pos_estudiante][0]
+    reportes[contador_reportes][2]=estudiantes[pos_reportado][0]
     reportes[contador_reportes][3]=motivo
     reportes[contador_reportes][4]=estado
-        
-             
-            
-    
-
-    print("Soy el menu de reportar al candidato.")
 
 '''
 opcion : integer
@@ -532,6 +530,41 @@ def login():
         sleep(5)
         limpiar_pantalla()
 
+def testing():
+    estudiantes[0][1]="estudiante1"
+    estudiantes[0][2]="estudiante1"
+    estudiantes[0][3]="ACTIVO"
+    estudiantes[0][4]="Nombre1"
+    estudiantes[0][5]="1997-09-03"
+    estudiantes[0][6]="Soy el primer estudiante"
+    estudiantes[0][7]="Programar"
+
+    estudiantes[1][1]="estudiante2"
+    estudiantes[1][2]="estudiante2"
+    estudiantes[1][3]="ACTIVO"
+    estudiantes[1][4]="Nombre2"
+    estudiantes[1][5]="1996-09-03"
+    estudiantes[1][6]="Soy el segundo estudiante"
+    estudiantes[1][7]="Jugar al counter"
+
+    estudiantes[2][1]="estudiante3"
+    estudiantes[2][2]="estudiante3"
+    estudiantes[2][3]="ACTIVO"
+    estudiantes[2][4]="Nombre3"
+    estudiantes[2][5]="1995-09-03"
+    estudiantes[2][6]="Soy el tercer estudiante"
+    estudiantes[2][7]="Jugar futbol"
+
+    estudiantes[3][1]="estudiante4"
+    estudiantes[3][2]="estudiante4"
+    estudiantes[3][3]="ACTIVO"
+    estudiantes[3][4]="Nombre4"
+    estudiantes[3][5]="1994-09-03"
+    estudiantes[3][6]="Soy el cuarto estudiante"
+    estudiantes[3][7]="Salir a bailar"
+
+    moderadores[0][1]="mod1"
+    moderadores[0][2]="mod1"
 
 #   0. Salir
 #   1. Login
@@ -539,9 +572,12 @@ def login():
 
 estudiantes=inicializar_arrays(8,8)
 moderadores=inicializar_arrays(4,3)
-reportes=inicializar_arrays(64,4)
+reportes=inicializar_arrays(64,5)
 estudiantes_likes=inicializar_arrays(8,8)
 estudiantes_likes=inicializar_likes(estudiantes_likes)
+
+testing()
+
 
 
 print_menu_inicio()
