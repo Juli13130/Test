@@ -10,6 +10,7 @@ import random
 # Para calcular la edad
 from datetime import datetime
 from turtle import pos
+from zoneinfo import InvalidTZPathWarning
 
 def inicializar_arrays(filas,columnas):
     array = [ [0] * columnas for i in range(filas)]
@@ -163,8 +164,8 @@ def menu_print_gestion_perfil():
     print(" b. Eliminar mi perfil")
     print(" c. Volver")
 
-def menu_eliminar_perfil():
-    global pos_estudiante
+def menu_eliminar_perfil(pos):
+    
     limpiar_pantalla()
     print("Confirmar eliminacion de perfil")
     print("0. Si")
@@ -173,13 +174,14 @@ def menu_eliminar_perfil():
     opc=validar(opc,0,1)
     match opc:
         case 0:
-            estudiantes[pos_estudiante][3]="INACTIVO"
+            estudiantes[pos][3]="INACTIVO"
         case 1:
             print("")
         case _:
             print("Ingrese una opcion correctamente")      
 
 def menu_opc_gestion_perfil():
+    global pos_estudiante
     limpiar_pantalla()
     menu_print_gestion_perfil()
     opcion = input("Ingrese una opcion: ")
@@ -189,7 +191,7 @@ def menu_opc_gestion_perfil():
                 case "a":
                     menu_editar_datos_personales()
                 case "b":
-                    menu_eliminar_perfil()
+                    menu_eliminar_perfil(pos_estudiante)
                 case _:
                     print("Ingrese la opcion correctamente")
                     sleep(5)   
@@ -391,9 +393,7 @@ def menu_opc_reportes():
     print("Likes dados y no recibidos: ", contador_likes_dados)
     print("Likes recibidos y no respondidos: ",contador_likes_recibidos)
     sleep(5)
-    limpiar_pantalla()
-
-    
+    limpiar_pantalla()   
 
 def menu_estudiantes():
     opc_principal = 5
@@ -424,7 +424,104 @@ def menu_principal_moderadores():
     print("2. Gestionar reportes")
     print("   a. Ver reportes")
     print("   b. Volver")
+    print("3. Reportes estadisticos")
     print("0. Salir")
+
+def menu_print_gestion_usuarios():
+    print("a. Desactivar usuario")
+    print("b. Volver")
+
+def menu_gestion_usuarios():
+    pos_eliminado=0
+    print("Eliminar por: ")
+    print("0. ID")
+    print("1. Usuario")
+    opc=int(input("Ingrese opcion: "))
+    opc=validar(opc,0,1)
+    if opc == 0:
+        id_eliminado=int(input("Ingrese ID del usuario a eliminar: "))
+        id_eliminado=validar(id_eliminado,0,7)
+        while estudiantes[id_eliminado][1] == 0:
+            print("No se encuentra usuario.")
+            id_eliminado=int(input("Ingrese ID del usuario a eliminar: "))
+            id_eliminado=validar(id_eliminado,0,7)
+        pos_eliminado=id_eliminado
+    else:
+        nombre_eliminado=input("Ingrese nombre del usuario a eliminar: ")
+        i=0
+        pos_eliminado=0
+        while nombre_eliminado != estudiantes[pos_eliminado][4]:
+            while i<7:
+                if estudiantes[i][4] == nombre_eliminado:
+                    pos_eliminado=i
+                    i=7
+                else:
+                    i=i+1
+            if i >= 7 and nombre_eliminado != estudiantes[pos_eliminado][4]:
+                print("No se encontro el nombre.")
+                nombre_eliminado=input("Ingrese nombre del usuario a eliminar: ")
+                i=0
+    menu_eliminar_perfil(pos_eliminado)
+  
+def menu_opc_gestion_usuarios():
+    limpiar_pantalla()
+    menu_print_gestion_usuarios()
+    opcion = input("Ingrese una opcion: ")
+    while opcion != "b":
+        match opcion:
+            case "a":
+                menu_gestion_usuarios()
+            case _:
+                print("Ingrese la opcion correctamente")
+                sleep(5)
+        limpiar_pantalla()
+        menu_print_gestion_usuarios()
+        opcion = input("Ingrese una opcion: ")
+
+
+def menu_print_gestion_reportes():
+    print("a. Ver reportes")
+    print("b. Volver")
+    
+def menu_gestion_reportes():
+    i=0
+    while i < 56:
+        if reportes[i][3] !=0:
+            id_reportante=reportes[i][1]
+            id_reportado=reportes[i][2]
+            motivo=reportes[i][3]
+            estado=reportes[i][4]
+            if estudiantes[id_reportante][3]=="ACTIVO" and estudiantes[id_reportado][3]=="ACTIVO" and estado == 0:
+                print("Reporte numero: ",i)
+                print("ID del reportante: ",id_reportante)
+                print("ID del reportado: ",id_reportado)
+                print("Motivo del reporte: ",motivo)
+                print("Que desea hacer?: ")
+                print("0. Ignorar reporte")
+                print("1. Bloquer a reportado")
+                opc=input("Ingrese opcion: ")
+                opc=validar(opc,0,1)
+                if opc == 0:
+                    reportes[i][4]=2
+                else:
+                    estudiantes[id_reportado][3]="INACTIVO"
+                    reportes[i][4]=1
+        i=i+1
+
+def menu_opc_gestion_reportes():
+    limpiar_pantalla()
+    menu_print_gestion_reportes()
+    opcion = input("Ingrese una opcion: ")
+    while opcion != "b":
+        match opcion:
+            case "a":
+                menu_gestion_reportes()
+            case _:
+                print("Ingrese la opcion correctamente")
+                sleep(5)
+        limpiar_pantalla()
+        menu_print_gestion_reportes()
+        opcion = input("Ingrese una opcion: ")
 
 def menu_moderadores():
     opc_principal = 5
@@ -432,21 +529,23 @@ def menu_moderadores():
         limpiar_pantalla()
         menu_principal_moderadores()
         seleccion_numerica = input("Ingrese su seleccion: ")
-        while not seleccion_numerica.isnumeric() or int(seleccion_numerica) > 4 or int(seleccion_numerica) < 0:
+        while not seleccion_numerica.isnumeric() or int(seleccion_numerica) > 3 or int(seleccion_numerica) < 0:
             print("Ingreso incorrectamente.")
             seleccion_numerica = input("Ingrese su seleccion: ")
         opc_principal = int(seleccion_numerica)
         match opc_principal:
             case 1:
-                menu_opc_gestion_perfil()
+                menu_opc_gestion_usuarios()
             case 2:
-                menu_opc_gestion_candidatos()
+                menu_opc_gestion_reportes()
             case 3:
-                menu_opc_matcheos()
-            case 4:
-                menu_opc_reportes()
-                sleep(5)
+                print("En construccion..")
         limpiar_pantalla()
+
+
+
+
+
 
 def contador_estudiante():
     contador_estudiantes=0
