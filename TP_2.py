@@ -498,7 +498,7 @@ def menu_gestion_reportes():
                 print("Motivo del reporte: ",motivo)
                 print("Que desea hacer?: ")
                 print("0. Ignorar reporte")
-                print("1. Bloquer a reportado")
+                print("1. Bloquear a reportado")
                 opc=input("Ingrese opcion: ")
                 opc=validar(opc,0,1)
                 if opc == 0:
