@@ -425,6 +425,8 @@ def menu_principal_moderadores():
     print("   a. Ver reportes")
     print("   b. Volver")
     print("3. Reportes estadisticos")
+    print("4. Bonus track 1")
+    print("5. Bonus track 2")
     print("0. Salir")
 
 def menu_print_gestion_usuarios():
@@ -523,13 +525,48 @@ def menu_opc_gestion_reportes():
         menu_print_gestion_reportes()
         opcion = input("Ingrese una opcion: ")
 
+def bonus_track_1():
+    edades=[21,18,20,19,23,24]
+    print("Dadas las edades: ",edades)
+    i=0
+    j=0
+    aux=0
+    max=edades[0]
+    while i<5:
+        j=i+1
+        while j < 5:
+            if edades[i] > edades[j]:
+                aux=edades[j]
+                edades[j]=edades[i]
+                edades[i]=aux
+            j=j+1
+        i=i+1
+    i=0
+    contador_huecos=0
+    while i<5:
+        edad_1=int(edades[i])
+        edad_2=(int(edades[i+1]))
+        if (edad_2-edad_1) != 1:
+            contador_huecos=contador_huecos+1
+            print("Hay un hueco entre ", edad_1 ," y ", edad_2)
+            print("El numero que falta es: ", edad_1+1)
+        i=i+1
+    print("Hay ",contador_huecos," huecos en total.")
+    sleep(5)
+            
+def bonus_track_2():
+    cantidad_estudiantes=contador_estudiante()
+    print("Hay ",cantidad_estudiantes," estudiantes cargados")
+    print("Por lo tanto hay ", (cantidad_estudiantes*(cantidad_estudiantes-1))," matcheos posibles")
+    sleep(5)
+
 def menu_moderadores():
     opc_principal = 5
     while opc_principal != 0:
         limpiar_pantalla()
         menu_principal_moderadores()
         seleccion_numerica = input("Ingrese su seleccion: ")
-        while not seleccion_numerica.isnumeric() or int(seleccion_numerica) > 3 or int(seleccion_numerica) < 0:
+        while not seleccion_numerica.isnumeric() or int(seleccion_numerica) > 5 or int(seleccion_numerica) < 0:
             print("Ingreso incorrectamente.")
             seleccion_numerica = input("Ingrese su seleccion: ")
         opc_principal = int(seleccion_numerica)
@@ -540,25 +577,25 @@ def menu_moderadores():
                 menu_opc_gestion_reportes()
             case 3:
                 print("En construccion..")
+            case 4:
+                bonus_track_1()
+            case 5:
+                bonus_track_2()
         limpiar_pantalla()
-
-
-
-
-
 
 def contador_estudiante():
     contador_estudiantes=0
     for i in range(8):  
         if estudiantes[i][1] != 0:  
              contador_estudiantes=contador_estudiantes+1
-    return contador_estudiante
+    return contador_estudiantes
     
 def contador_moderador():
     contador_moderadores=0
     for i in range(4):
         if moderadores[i][1] != 0:
             contador_moderadores=contador_moderadores+1
+    return contador_moderadores
 
 def registrar():
     print("Menu de registro")
