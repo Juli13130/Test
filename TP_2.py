@@ -2,15 +2,12 @@
 import getpass
 # Para limpiar la consola
 import os
-from re import A
 # Para usar delay
 from time import sleep
 # Para ruleta
 import random
 # Para calcular la edad
 from datetime import datetime
-from turtle import pos
-from zoneinfo import InvalidTZPathWarning
 
 def inicializar_arrays(filas,columnas):
     array = [ [0] * columnas for i in range(filas)]
@@ -19,12 +16,6 @@ def inicializar_arrays(filas,columnas):
     for i in range (filas):
         array[i][0]=i
     return array
-    
-#c = 4
-#r = 3
-#Array = [ [0] * c for i in range(r) ]
-
-
 
 def limpiar_pantalla():
     os.system('cls')
@@ -35,27 +26,29 @@ def print_menu_inicio():
     print("2. Registrarse")
 
 def validar(var,min,max):
+    aux=False
+    while aux == False:
+        if (var.isnumeric())==True:
+           opc=int(var)
+           if (opc<min or opc>max):
+                print("Opcion incorrecta.")
+                var=input("Ingrese la opcion correctamente: ")
+           else:
+               aux=True
+        elif (var.isnumeric())==False:
+            print("Opcion incorrecta.")
+            var=input("Ingrese la opcion correctamente: ")
     var=int(var)
-    while var<min or var >max:
-        print("Opcion incorrecta.")
-        var=int(input("Ingrese la opcion correctamente: "))
     return var
-    
+
 def print_tipos_usuarios():
     print("Los tipos de usuarios son: ")
     print("1. Estudiantes")
     print("2. Moderadores")
 
 def check():
-    
-    contador_estudiantes=0
-    contador_moderadores=0
-    for i in range(8):
-        if estudiantes[i][1] != 0:
-            contador_estudiantes=contador_estudiantes+1
-    for i in range(4):
-        if moderadores[i][1] != 0:
-            contador_moderadores=contador_moderadores+1
+    contador_estudiantes=contador_estudiante()
+    contador_moderadores=contador_moderador()
     if contador_estudiantes >= 4 and contador_moderadores >= 1:
         return True
     else:
@@ -72,7 +65,7 @@ def login_estudiantes():
         contrasenia = getpass.getpass("Ingrese la contrasenia: ")
         while estudiantes[i][1] != email and i<7:
             i=i+1
-        estado = estudiantes[i][3]
+        #estado = estudiantes[i][3]
         if email == estudiantes[i][1] and contrasenia == estudiantes[i][2]:
             intentos=4
             acceso="Estudiante"
@@ -80,6 +73,7 @@ def login_estudiantes():
         else:
             intentos=intentos+1
             print("Quedan ",3-intentos," intentos")
+    estado = estudiantes[i][3]
     if acceso == "Estudiante" and estado != "ACTIVO":
         acceso="Denegado"
         print("Su cuenta se encuentra INACTIVA")
@@ -194,7 +188,7 @@ def menu_opc_gestion_perfil():
                     menu_eliminar_perfil(pos_estudiante)
                 case _:
                     print("Ingrese la opcion correctamente")
-                    sleep(5)   
+                    sleep(2)   
             limpiar_pantalla()
             if estudiantes[pos_estudiante][3]=="ACTIVO":
                 menu_print_gestion_perfil()
@@ -246,12 +240,12 @@ def menu_ver_candidatos():
             
     if estudiantes[mgestudiante_pos][4] == yo_candidato:
             print("No se puede elegir a usted mismo.")
-            sleep(5)
+            sleep(2)
             limpiar_pantalla()        
     else:
         print("Se dio like al estudiante: ",estudiantes[mgestudiante_pos][4])
         estudiantes_likes[pos_estudiante][mgestudiante_pos]=1
-        sleep(5)
+        sleep(2)
         limpiar_pantalla()
         
     #while mgestudiante != estudiante1_nombre and mgestudiante != estudiante2_nombre and mgestudiante != estudiante3_nombre and mgestudiante != estudiante4_nombre or mgestudiante == yo_candidato:
@@ -338,7 +332,7 @@ def menu_opc_gestion_candidatos():
                 menu_reportar_candidato()
             case _:
                 print("Ingrese la opcion correctamente")
-                sleep(5)
+                sleep(2)
         limpiar_pantalla()
         menu_print_gestion_candidatos()
         opcion = input("Ingrese una opcion: ")
@@ -357,7 +351,7 @@ def menu_opc_matcheos():
                 #menu_ruleta()
             case _:
                 print("Ingrese una opcion correctamente.")
-        sleep(5)
+        sleep(2)
         limpiar_pantalla()
         menu_print_matcheos()
         opcion = input("Ingrese una opcion: ")
@@ -392,7 +386,7 @@ def menu_opc_reportes():
     print("Matcheados sobre el % posible: ", ((contador_match/7)*100), "%")
     print("Likes dados y no recibidos: ", contador_likes_dados)
     print("Likes recibidos y no respondidos: ",contador_likes_recibidos)
-    sleep(5)
+    sleep(2)
     limpiar_pantalla()   
 
 def menu_estudiantes():
@@ -415,7 +409,7 @@ def menu_estudiantes():
             case 4:
                 menu_opc_reportes()
         limpiar_pantalla()
-        sleep(5)
+        sleep(2)
     
 def menu_principal_moderadores():
     print("1. Gestionar usuarios")
@@ -475,11 +469,10 @@ def menu_opc_gestion_usuarios():
                 menu_gestion_usuarios()
             case _:
                 print("Ingrese la opcion correctamente")
-                sleep(5)
+                sleep(2)
         limpiar_pantalla()
         menu_print_gestion_usuarios()
         opcion = input("Ingrese una opcion: ")
-
 
 def menu_print_gestion_reportes():
     print("a. Ver reportes")
@@ -520,7 +513,7 @@ def menu_opc_gestion_reportes():
                 menu_gestion_reportes()
             case _:
                 print("Ingrese la opcion correctamente")
-                sleep(5)
+                sleep(2)
         limpiar_pantalla()
         menu_print_gestion_reportes()
         opcion = input("Ingrese una opcion: ")
@@ -552,13 +545,13 @@ def bonus_track_1():
             print("El numero que falta es: ", edad_1+1)
         i=i+1
     print("Hay ",contador_huecos," huecos en total.")
-    sleep(5)
+    sleep(2)
             
 def bonus_track_2():
     cantidad_estudiantes=contador_estudiante()
     print("Hay ",cantidad_estudiantes," estudiantes cargados")
     print("Por lo tanto hay ", (cantidad_estudiantes*(cantidad_estudiantes-1))," matcheos posibles")
-    sleep(5)
+    sleep(2)
 
 def menu_moderadores():
     opc_principal = 5
@@ -702,12 +695,12 @@ def login():
             print("Acceso denegado")
     else:
         print("No se puede iniciar porque no hay 1 moderador y 4 estudiantes registrados.")
-        sleep(5)
+        sleep(2)
         limpiar_pantalla()
 
 def testing():
     print("Usuarios de testing activados")
-    sleep(5)
+    sleep(2)
     limpiar_pantalla()
     
     estudiantes[0][1]="estudiante1"
@@ -777,7 +770,7 @@ while opc != 0:
 
 
 #Modulos anteriores sin usar
-    
+'''    
 # def ruleta_instrucciones():
 #     print("La Ruleta de afinidad es una forma de seleccionar tu matcheo")
 #     print("usando tu afinidad con tres personas!")
@@ -787,10 +780,9 @@ while opc != 0:
 #     print(" 0. Salir")
 
 
-'''
 seleccion_numerica : string
 opcion_ruleta : integer
-'''
+
 
 
 # def menu_ruleta():
@@ -809,10 +801,8 @@ opcion_ruleta : integer
 #                 ruleta()
 
 
-'''
 yo_candidato, nombre_* estudiante*_nombre : string
 numran, probabilidad_* : integer
-'''
 
 
 # def ruleta():
@@ -874,3 +864,5 @@ numran, probabilidad_* : integer
 #     else:
 #         print("Hiciste match con: ", nombre_C)
 #     sleep(5)    
+
+'''
