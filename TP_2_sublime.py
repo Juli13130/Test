@@ -1,3 +1,8 @@
+#Integrantes:
+#Julian Fernández
+#Alejo Aguëro
+#Matias Fernandez
+#Kevin Jordan Dorko
 # Para ocultar los caracteres
 import getpass
 # Para limpiar la consola
@@ -947,7 +952,7 @@ moderadores=inicializar_arrays(4,2,"")
 reportes=inicializar_arrays(56,3,0)
 reportes_motivo=inicializar_arrays(56,1,"")
 
-
+'''
 #Carga de usuarios de testing
 print("Carga de usuarios de testing?")
 print("1. Si")
@@ -956,7 +961,7 @@ opc=input("Ingrese opcion: ")
 opc=validar(opc,0,1)
 if opc==1:
     testing()
- 
+'''
 
 print_menu_inicio()
 opc=input("Ingrese opcion: ")
